@@ -30,7 +30,9 @@
         // 捕获 prettier 错误
         "prettier/prettier": "error",
         // vue3允许多子节点
-        "vue/no-multiple-template-root": 0
+        "vue/no-multiple-template-root": 0,
+        // ts允许使用any
+        "@typescript-eslint/no-explicit-any": 0
     },
     // 增加vue文件的格式化功能
     "parser": "vue-eslint-parser"

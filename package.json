@@ -11,11 +11,14 @@
     "lint:eslint"
   ],
   "dependencies": {
+    "axios": "^0.22.0",
     "element-plus": "^1.1.0-beta.19",
+    "mockjs": "^1.1.0",
     "vue": "^3.2.16",
     "windicss": "^3.1.8"
   },
   "devDependencies": {
+    "@types/mockjs": "^1.0.4",
     "@typescript-eslint/eslint-plugin": "^4.32.0",
     "@vitejs/plugin-vue": "^1.9.2",
     "eslint": "^7.32.0",
@@ -26,5 +29,6 @@
     "vite": "^2.6.0",
     "vite-plugin-windicss": "^1.4.9",
     "vue-tsc": "^0.3.0"
-  }
+  },
+  "license": "MIT"
 }
