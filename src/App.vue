@@ -1,5 +1,5 @@
 <template>
-  <div>
+  <div class="p-30">
     <el-input placeholder="balabala..."></el-input>
     <el-button type="primary">aaa</el-button>
   </div>

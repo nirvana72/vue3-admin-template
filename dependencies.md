@@ -13,6 +13,8 @@ docker run --name=nodejs -p 3000:3000 -v E:/workspace:/workspace -itd node:14.18
 
 ```
 npm install -g npm@7.24.1
+
+npm config set registry https://registry.npm.taobao.org
 ```
 
 ## 创建 vite 项目
@@ -91,7 +93,7 @@ npm i -D @typescript-eslint/eslint-plugin
 ```
 "scripts": {
     ...
-    "lint:eslint": "eslint --cache --max-warnings 0  \"{src}/**/*.{vue,ts}\""
+    "lint:eslint": "eslint --cache --max-warnings 0  \"{src,mock}/**/*.{vue,ts,tsx}\""
   },
   "pre-commit": [
     "lint:eslint"
