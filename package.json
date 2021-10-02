@@ -11,6 +11,7 @@
     "lint:eslint"
   ],
   "dependencies": {
+    "element-plus": "^1.1.0-beta.19",
     "vue": "^3.2.16"
   },
   "devDependencies": {

@@ -1,4 +1,14 @@
 import { createApp } from 'vue'
 import App from './App.vue'
 
-createApp(App).mount('#app')
+import { setupElementUI } from '@/components/setupElementUI'
+
+function bootstrap() {
+  const app = createApp(App)
+
+  setupElementUI(app)
+
+  app.mount('#app')
+}
+
+bootstrap()

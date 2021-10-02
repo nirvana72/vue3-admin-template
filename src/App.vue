@@ -1,5 +1,8 @@
 <template>
-  <div>App</div>
+  <div>
+    <el-input placeholder="balabala..."></el-input>
+    <el-button type="primary">aaa</el-button>
+  </div>
 </template>
 
 <script lang="ts">
