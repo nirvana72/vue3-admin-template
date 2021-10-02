@@ -22,3 +22,78 @@ npm install -g npm@7.24.1
 ```
 npm init @vitejs/app xxxx
 ```
+
+## 代码风格
+
+### Eslint
+
+- vscode 安装 eslint 插件, 增加代码风格提示
+
+```
+# 安装  eslint
+npm i -D eslint
+
+# 初始化eslint 配置文件, 很多选项，根据自己的项目决定
+npx eslint --init
+
+# 用 eslint 命令检查代码风格
+eslint demo.ts
+
+# 自动修复代码风格
+eslint demo.ts --fix
+```
+
+### prettier
+
+- vscode 安装 prettier 插件
+- 手动创建 .prettierrc.json
+
+```
+npm i prettier -D
+
+# 修复 dmeo.ts 文件命令
+npx prettier -write demo.ts
+```
+
+- .vscode/settings.json
+
+```
+{
+  // 保存后自动格式化
+  "editor.formatOnSave": true,
+  "[typescript]": {
+    "editor.defaultFormatter": "esbenp.prettier-vscode"
+  },
+  "[vue]": {
+    "editor.defaultFormatter": "esbenp.prettier-vscode"
+  },
+  // 行尾序列号
+  "files.eol": "\n",
+  // 单行最大长度
+  "prettier.printWidth": 120,
+}
+```
+
+### 代码提交前验证
+
+```
+npm i -D pre-commit
+
+npm i -D eslint-plugin-prettier
+
+npm i -D eslint-plugin-vue
+
+npm i -D @typescript-eslint/eslint-plugin
+```
+
+- package.json
+
+```
+"scripts": {
+    ...
+    "lint:eslint": "eslint --cache --max-warnings 0  \"{src}/**/*.{vue,ts}\""
+  },
+  "pre-commit": [
+    "lint:eslint"
+  ],
+```

@@ -3,12 +3,13 @@
 </template>
 
 <script lang="ts">
-import { defineComponent } from "vue";
+import { defineComponent } from 'vue'
 
 export default defineComponent({
-  name: "NjApp",
+  name: 'NjApp',
   setup() {
-    console.log("app");
+    // eslint-disable-next-line no-console
+    console.log('app')
   },
-});
+})
 </script>
