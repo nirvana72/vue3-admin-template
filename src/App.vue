@@ -1,12 +1,29 @@
 <template>
-  <h1>APP</h1>
   <router-view></router-view>
 </template>
 
 <script lang="ts">
-import { defineComponent } from 'vue'
+import { defineComponent, watch } from 'vue'
+import { usePageTitle } from '@/utils/usePageTitle'
+import { useAppStore } from '@/store/modules/app'
+import { useBreakpoints, breakpointsTailwind } from '@vueuse/core'
 
 export default defineComponent({
   name: 'App',
+  setup() {
+    usePageTitle()
+
+    const appStore = useAppStore()
+    const breakpoints = useBreakpoints(breakpointsTailwind)
+    const isSmallerSm = breakpoints.smaller('sm')
+
+    watch(
+      () => isSmallerSm.value,
+      (flag) => {
+        appStore.getSetting.isMobile = flag
+      },
+      { immediate: true },
+    )
+  },
 })
 </script>

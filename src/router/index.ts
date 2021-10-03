@@ -5,6 +5,8 @@ import basicRoutes from './basic'
 import LAYOUT from '@/layout/index.vue'
 import { cloneDeep, last as arrayLast } from 'lodash-es'
 
+import { setPermissionGuard } from './guards/permission'
+
 const router = createRouter({
   history: createWebHashHistory(),
   routes: basicRoutes as unknown as RouteRecordRaw[],
@@ -44,4 +46,6 @@ export function defaultLayout(): Promise<ReturnType<typeof defineComponent>> {
 
 export function setupRouter(app: App<Element>): void {
   app.use(router)
+
+  setPermissionGuard(router)
 }
