@@ -32,7 +32,9 @@
         // vue3允许多子节点
         "vue/no-multiple-template-root": 0,
         // ts允许使用any
-        "@typescript-eslint/no-explicit-any": 0
+        "@typescript-eslint/no-explicit-any": 0,
+        // 允许 a!.length  这种写法
+        "@typescript-eslint/no-non-null-assertion": 0
     },
     // 增加vue文件的格式化功能
     "parser": "vue-eslint-parser"
