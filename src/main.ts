@@ -2,7 +2,8 @@ import { createApp } from 'vue'
 import App from './App.vue'
 
 import { setupElementUI } from '@/components/setupElementUI'
-import { setupMockServer } from '../mock/index'
+// import { setupMockServer } from '../mock/index'
+import { setupRouter } from '@/router'
 
 import 'virtual:windi.css'
 
@@ -11,9 +12,11 @@ function bootstrap() {
 
   setupElementUI(app)
 
-  setupMockServer()
+  setupRouter(app)
 
   app.mount('#app')
 }
+
+// setupMockServer()
 
 bootstrap()
