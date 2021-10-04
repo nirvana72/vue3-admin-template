@@ -6,7 +6,18 @@ const modules: MockMethod[] = [
     method: 'post',
     handle: (): any => {
       return {
-        ret: -1,
+        ret: 1,
+        msg: 'okOK',
+        data: { a: 'aaa' },
+      }
+    },
+  },
+  {
+    api: '/demo1',
+    method: 'post',
+    handle: (): any => {
+      return {
+        ret: 1,
         msg: 'okOK',
       }
     },

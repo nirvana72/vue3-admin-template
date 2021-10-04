@@ -13,4 +13,16 @@ export default defineConfig({
   server: {
     host: true,
   },
+  build: {
+    // 不要打成默认的 vendor.xxxx.js, 按模块分别打包
+    rollupOptions: {
+      output: {
+        manualChunks(id) {
+          if (id.includes('node_modules')) {
+            return id.toString().split('node_modules/')[1].split('/')[0].toString()
+          }
+        },
+      },
+    },
+  },
 })

@@ -1,11 +1,16 @@
 import Mock from 'mockjs'
+import { useAppEnv } from '@/utils/useAppEnv'
 
 import DemoMocks from './modules/demo'
+import SysMocks from './modules/sys'
 
 export function setupMockServer(): void {
-  const modules = [...DemoMocks]
+  const appEnv = useAppEnv()
+
+  const modules = [...DemoMocks, ...SysMocks]
   modules.forEach((m) => {
-    Mock.mock(m.api, m.method, m.handle)
+    const api = appEnv.VITE_API_URL + m.api
+    Mock.mock(api, m.method, m.handle)
   })
 
   Mock.setup({})
