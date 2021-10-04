@@ -1,7 +1,7 @@
 import type { AppRouteModule, AppMenu } from '@/router/types'
 import type { Router, RouteRecordRaw, RouteRecordNormalized } from 'vue-router'
 import { createRouter, createWebHashHistory } from 'vue-router'
-import { sortBy } from 'lodash-es'
+import { sortBy } from 'lodash'
 
 // 将路由对象转成菜单对像
 export function transformRouteToMenu(

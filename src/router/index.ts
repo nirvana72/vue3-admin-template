@@ -3,9 +3,12 @@ import { createRouter, createWebHashHistory, RouteRecordRaw } from 'vue-router'
 import type { AppRouteModule } from '@/router/types'
 import basicRoutes from './basic'
 import LAYOUT from '@/layout/index.vue'
-import { cloneDeep, last as arrayLast } from 'lodash-es'
+import { cloneDeep, last as arrayLast } from 'lodash'
 
+import { setPageTabsGuard } from './guards/pageTabs'
 import { setPermissionGuard } from './guards/permission'
+import { setProgressGuard } from './guards/progress'
+import { setStateGuard } from './guards/state'
 
 const router = createRouter({
   history: createWebHashHistory(),
@@ -47,5 +50,11 @@ export function defaultLayout(): Promise<ReturnType<typeof defineComponent>> {
 export function setupRouter(app: App<Element>): void {
   app.use(router)
 
+  setPageTabsGuard(router)
+
   setPermissionGuard(router)
+
+  setProgressGuard(router)
+
+  setStateGuard(router)
 }
