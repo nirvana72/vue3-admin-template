@@ -1,0 +1,12 @@
+// header 高度
+$appHeaderStateHeight: 50px; // 路由导航部分高度
+$appHeaderTabsHeight: 35px; // 分页标签部分高度
+
+// 侧边菜单宽度
+$sideMenuFoldWidth: 60px;
+$sideMenuExpandWidth: 180px;
+
+:export {
+  appHeaderStateHeight: $appHeaderStateHeight;
+  appHeaderTabsHeight: $appHeaderTabsHeight;
+}

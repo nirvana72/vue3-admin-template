@@ -1,0 +1,72 @@
+// ------------------------------------------------
+// 暗黑模式
+// ------------------------------------------------
+html.dark {
+  // ------------------------------------------------
+  --el-color-white: #000;
+  --el-color-black: #fff;
+
+  // ------------------------------------------------
+
+  --appColor-9: #111827;
+  --appColor-8: #1f2937;
+  --appColor-7: #374151;
+  --appColor-6: #4b5563;
+  --appColor-5: #6b7280;
+  --appColor-4: #9ca3af;
+  --appColor-3: #d1d5db;
+  --appColor-2: #e5e7eb;
+  --appColor-1: #f3f4f6;
+  --appColor-0: #f9fafb;
+
+  --appTextColor: var(--appColor-4);
+
+  #appAside,
+  ul.el-menu--popup {
+    --appAsideTextColor: var(--appColor-4);
+    --appAsideTextColorHover: var(--el-color-black);
+    --appAsideBgColor: var(--appColor-8);
+    --appAsideSubBgColor: #2d2d2d;
+  }
+
+  #appHeader {
+    --appHeaderBgColor: #151515;
+    --appHeaderStateBorderColor: var(--appColor-8);
+    --appHeaderTabsBorderColor: var(--appColor-8);
+  }
+
+  #appMain {
+    .appPageHeader {
+      background-color: #151515;
+    }
+  }
+
+  // ------------------------------------------------
+
+  --el-text-color-primary: #c0c4cc;
+  --el-text-color-regular: #909399;
+  --el-text-color-secondary: #606266;
+  --el-text-color-placeholder: #303133;
+  --el-border-color-lighter: #1f2937;
+
+  .el-popper {
+    //border: unset;
+  }
+  .el-overlay {
+    background-color: rgba(255, 255, 255, 0.3);
+  }
+  .el-drawer {
+    background-color: var(--appColor-9);
+  }
+  .el-drawer__header {
+    color: var(--appColor-1);
+  }
+  .el-button--default {
+    border-color: var(--appColor-6);
+    background-color: var(--appColor-8);
+    &:focus,
+    &:hover {
+      background-color: var(--appColor-7);
+    }
+  }
+}
