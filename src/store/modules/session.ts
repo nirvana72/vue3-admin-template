@@ -41,7 +41,7 @@ export const useSessionStore = defineStore({
           this.session = {
             userId: -1,
             realName: '',
-            avatar: '/public/avatar/unknow.png',
+            avatar: '/avatar/unknow.png',
             token: '',
             refToken: '',
           }
