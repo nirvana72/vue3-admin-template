@@ -53,12 +53,9 @@ export default defineComponent({
       if (!isMobile.value && withPageTab.value) tabsStore.addTab(router)
     }, true)
 
-    watch(
-      () => isMobile.value,
-      (flag) => {
-        if (flag) tabsStore.reset()
-      },
-    )
+    watch(isMobile, (flag) => {
+      if (flag) tabsStore.reset()
+    })
 
     function onTabClick(tab: Pane) {
       tabsStore.setIsTabSwitch(true)

@@ -18,7 +18,7 @@ export default defineComponent({
     const isSmallerSm = breakpoints.smaller('sm')
 
     watch(
-      () => isSmallerSm.value,
+      isSmallerSm,
       (flag) => {
         appStore.getSetting.isMobile = flag
       },

@@ -1,6 +1,7 @@
-// ------------------------------------------------
-// 暗黑模式
-// ------------------------------------------------
+/**************************************************
+* 暗黑模式 主要设置颜色，不涉及布局
+***************************************************/
+
 html.dark {
   // ------------------------------------------------
   --el-color-white: #000;
@@ -30,15 +31,9 @@ html.dark {
   }
 
   #appHeader {
-    --appHeaderBgColor: #151515;
+    --appHeaderBgColor: #181818;
     --appHeaderStateBorderColor: var(--appColor-8);
     --appHeaderTabsBorderColor: var(--appColor-8);
-  }
-
-  #appMain {
-    .appPageHeader {
-      background-color: #151515;
-    }
   }
 
   // ------------------------------------------------
@@ -68,5 +63,8 @@ html.dark {
     &:hover {
       background-color: var(--appColor-7);
     }
+  }
+  .el-card__header {
+    border-bottom-color: var(--appColor-6);
   }
 }

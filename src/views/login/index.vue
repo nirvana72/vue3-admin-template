@@ -33,7 +33,7 @@
           </el-input>
         </ElFormItem>
         <ElFormItem>
-          <el-button type="primary" class="w-full" @click="doLogin">login</el-button>
+          <el-button type="primary" :loading="loading" class="w-full" @click="doLogin">login</el-button>
         </ElFormItem>
       </ElForm>
     </div>
@@ -44,7 +44,7 @@
 import { useSessionStore, UserSession } from '@/store/modules/session'
 import { useRouter } from 'vue-router'
 import { ElForm, ElFormItem, ElMessage } from 'element-plus'
-import { defineComponent, reactive, toRaw } from 'vue'
+import { defineComponent, reactive, ref, toRaw } from 'vue'
 import { http } from '@/utils/http'
 
 export default defineComponent({
@@ -53,6 +53,7 @@ export default defineComponent({
   setup() {
     const sessionStore = useSessionStore()
     const router = useRouter()
+    const loading = ref(false)
 
     const formModule = reactive({
       account: 'admin',
@@ -61,14 +62,21 @@ export default defineComponent({
 
     function doLogin() {
       const data = toRaw(formModule)
-      http.post<UserSession>('/login', { data }).then(async (session) => {
-        sessionStore.setSesssion(session)
-        await router.replace('/')
-        ElMessage.success({ message: `欢迎回来: ${session.realName}`, center: true })
-      })
+      loading.value = true
+      http
+        .post<UserSession>('/login', { data })
+        .then(async (session) => {
+          sessionStore.setSesssion(session)
+          await router.replace('/')
+          ElMessage.success({ message: `欢迎回来: ${session.realName}`, center: true })
+        })
+        .finally(() => {
+          loading.value = false
+        })
     }
 
     return {
+      loading,
       formModule,
       doLogin,
     }

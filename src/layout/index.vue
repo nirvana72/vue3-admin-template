@@ -43,7 +43,7 @@ export default defineComponent({
     })
 
     watch(
-      () => isSmallerLg.value,
+      isSmallerLg,
       (flag) => {
         const state = flag ? MenuState.FOLD : MenuState.EXPAND
         appStore.setMenuState(state)

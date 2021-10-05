@@ -57,7 +57,8 @@ function requestInterceptor(config: AxiosRequestConfig, option: RequestOption): 
   if (option.withToken) {
     const session = useSessionStore()
     if (session.getSession.userId > 0) {
-      config.headers![JWT_KEY] = session.getSession.token
+      config.headers = {}
+      config.headers[JWT_KEY] = session.getSession.token
     }
   }
 
