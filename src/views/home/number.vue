@@ -1,5 +1,5 @@
 <template>
-  <ElCard shadow="none" class="el-card--fix flex-1">
+  <el-card shadow="none" class="el-card--fix flex-1">
     <template #header>
       <div class="flex items-center justify-between">
         <span>{{ title }}</span>
@@ -7,13 +7,12 @@
       </div>
     </template>
     <div class="text-center py-2">{{ number }}</div>
-  </ElCard>
+  </el-card>
 </template>
 
 <script lang="ts" setup>
 import { defineProps } from 'vue'
 import { Icon } from '@iconify/vue'
-import { ElCard } from 'element-plus'
 
 defineProps({
   title: { type: String, default: '' },

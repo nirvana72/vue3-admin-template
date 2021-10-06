@@ -14,28 +14,28 @@
       </div>
     </div>
     <div class="w-1/2">
-      <ElForm class="w-300px mx-auto">
-        <ElFormItem>
+      <el-form class="w-300px mx-auto">
+        <el-form-item>
           <label class="text-2xl">登录</label>
-        </ElFormItem>
-        <ElFormItem>
+        </el-form-item>
+        <el-form-item>
           <el-input placeholder="account" v-model="formModule.account">
             <template #prepend>
               <i class="el-icon-user"></i>
             </template>
           </el-input>
-        </ElFormItem>
-        <ElFormItem>
+        </el-form-item>
+        <el-form-item>
           <el-input placeholder="password" type="password" v-model="formModule.password">
             <template #prepend>
               <i class="el-icon-lock"></i>
             </template>
           </el-input>
-        </ElFormItem>
-        <ElFormItem>
+        </el-form-item>
+        <el-form-item>
           <el-button type="primary" :loading="loading" class="w-full" @click="doLogin">login</el-button>
-        </ElFormItem>
-      </ElForm>
+        </el-form-item>
+      </el-form>
     </div>
   </div>
 </template>
@@ -43,13 +43,12 @@
 <script lang="ts">
 import { useSessionStore, UserSession } from '@/store/modules/session'
 import { useRouter } from 'vue-router'
-import { ElForm, ElFormItem, ElMessage } from 'element-plus'
+import { ElMessage } from 'element-plus'
 import { defineComponent, reactive, ref, toRaw } from 'vue'
 import { http } from '@/utils/http'
 
 export default defineComponent({
   name: 'AppLogin',
-  components: { ElForm, ElFormItem },
   setup() {
     const sessionStore = useSessionStore()
     const router = useRouter()

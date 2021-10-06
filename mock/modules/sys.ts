@@ -4,7 +4,7 @@ import { IChartData } from '@/views/home/chart-line.vue'
 
 const modules: MockMethod[] = [
   {
-    api: '/login',
+    api: /\/login$/,
     method: 'post',
     handle: (): any => {
       return {
@@ -21,7 +21,7 @@ const modules: MockMethod[] = [
     },
   },
   {
-    api: '/dashboard',
+    api: /\/dashboard$/,
     method: 'get',
     handle: (): any => {
       const data: IChartData = {

@@ -56,7 +56,7 @@ function requestInterceptor(config: AxiosRequestConfig, option: RequestOption): 
   // 是否要加上jwt token
   if (option.withToken) {
     const session = useSessionStore()
-    if (session.getSession.userId > 0) {
+    if (session.isLogin) {
       config.headers = {}
       config.headers[JWT_KEY] = session.getSession.token
     }

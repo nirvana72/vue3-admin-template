@@ -15,21 +15,21 @@
       </ElCol>
     </ElRow>
 
-    <ElCard shadow="none" class="el-card--fix mt-5">
+    <el-card shadow="none" class="el-card--fix mt-5">
       <template #header> 流量趋势 </template>
       <ChartLine ref="chartLine" />
-    </ElCard>
+    </el-card>
 
-    <ElCard shadow="none" class="el-card--fix mt-5">
+    <el-card shadow="none" class="el-card--fix mt-5">
       <template #header> 访问量 </template>
       <ChartBar ref="chartBar" />
-    </ElCard>
+    </el-card>
   </app-page-warpper>
 </template>
 
 <script lang="ts">
 import { defineComponent, onMounted, ref } from 'vue'
-import { ElCard, ElRow, ElCol } from 'element-plus'
+import { ElRow, ElCol } from 'element-plus'
 import Header from './header.vue'
 import ChartLine, { IChartData, IChartLine } from './chart-line.vue'
 import ChartBar, { IChartBar } from './chart-bar.vue'
@@ -38,7 +38,7 @@ import { http } from '@/utils/http'
 
 export default defineComponent({
   name: 'Home',
-  components: { Header, Number, ElCard, ElRow, ElCol, ChartLine, ChartBar },
+  components: { Header, Number, ElRow, ElCol, ChartLine, ChartBar },
   setup() {
     const chartLine = ref<IChartLine>()
     const chartBar = ref<IChartBar>()

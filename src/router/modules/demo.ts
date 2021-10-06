@@ -13,16 +13,10 @@ const router: AppRouteModule = {
   },
   children: [
     {
-      path: 'page1',
-      name: 'DemoPage1',
-      component: () => import('@/views/demo/page1.vue'),
-      meta: { title: 'PAGE1' },
-    },
-    {
-      path: 'page2',
-      name: 'DemoPage2',
-      component: () => import('@/views/demo/page2.vue'),
-      meta: { title: 'PAGE2' },
+      path: 'table',
+      name: 'DemoTable',
+      component: () => import('@/views/demo/demo/table/index.vue'),
+      meta: { title: 'TABLE' },
     },
   ],
 }

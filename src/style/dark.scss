@@ -21,6 +21,7 @@ html.dark {
   --appColor-0: #f9fafb;
 
   --appTextColor: var(--appColor-4);
+  --appPanelBgColor: #181818;
 
   #appAside,
   ul.el-menu--popup {
@@ -31,7 +32,7 @@ html.dark {
   }
 
   #appHeader {
-    --appHeaderBgColor: #181818;
+    --appHeaderBgColor: var(--appPanelBgColor);
     --appHeaderStateBorderColor: var(--appColor-8);
     --appHeaderTabsBorderColor: var(--appColor-8);
   }
@@ -43,10 +44,9 @@ html.dark {
   --el-text-color-secondary: #606266;
   --el-text-color-placeholder: #303133;
   --el-border-color-lighter: #1f2937;
+  --el-border-color-base: var(--appColor-5);
+  --el-background-color-base: var(--appColor-5);
 
-  .el-popper {
-    //border: unset;
-  }
   .el-overlay {
     background-color: rgba(255, 255, 255, 0.3);
   }
@@ -66,5 +66,34 @@ html.dark {
   }
   .el-card__header {
     border-bottom-color: var(--appColor-6);
+  }
+  .el-table {
+    --el-table-font-color: var(--appTextColor);
+    --el-table-header-background-color: var(--appPanelBgColor);
+    --el-table-tr-background-color: var(--appPanelBgColor);
+    --el-table-row-hover-background-color: var(--appColor-7);
+  }
+  .el-tag {
+    color: var(--el-tag-border-color);
+    background-color: var(--el-tag-hover-color);
+    border-color: var(--el-tag-hover-color);
+  }
+  .el-pagination.is-background {
+    button,
+    li {
+      background-color: #000000;
+    }
+  }
+  .el-loading-mask {
+    background-color: rgba(0, 0, 0, 0.8);
+  }
+
+  .el-select__popper.el-popper[role='tooltip'] {
+    border-color: var(--appColor-7);
+  }
+
+  .el-input {
+    --el-input-font-color: var(--appColor-1);
+    --el-input-placeholder-color: var(--appColor-5);
   }
 }

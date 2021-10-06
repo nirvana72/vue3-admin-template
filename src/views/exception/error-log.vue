@@ -1,9 +1,11 @@
 <template>
-  <div>
-    <div class="appPageHeader text-center">
-      <h1 class="float-left text-xl">错误日志</h1>
-      <el-button type="primary" @click="cleanError">清空并关闭</el-button>
-    </div>
+  <app-page-warpper>
+    <template #header>
+      <div class="text-center p-10">
+        <h1 class="float-left text-xl">错误日志</h1>
+        <el-button type="primary" @click="cleanError">清空并关闭</el-button>
+      </div>
+    </template>
     <div class="p-4">
       <div
         v-for="(item, index) in errorList"
@@ -12,25 +14,25 @@
       >
         <div>
           <div class="my-2">
-            <ElTag type="danger">type: {{ item.type }}</ElTag>
+            <el-tag type="danger">type: {{ item.type }}</el-tag>
           </div>
           <div class="my-2">
-            <ElTag type="danger">file: {{ item.file }}</ElTag>
+            <el-tag type="danger">file: {{ item.file }}</el-tag>
           </div>
           <div class="my-2">
-            <ElTag type="danger">name: {{ item.name }}</ElTag>
+            <el-tag type="danger">name: {{ item.name }}</el-tag>
           </div>
           <div class="my-2">
-            <ElTag type="danger">message: {{ item.message }}</ElTag>
+            <el-tag type="danger">message: {{ item.message }}</el-tag>
           </div>
           <div class="my-2">
-            <ElTag type="danger">url: {{ item.url }}</ElTag>
+            <el-tag type="danger">url: {{ item.url }}</el-tag>
           </div>
         </div>
         <div v-html="item.stack" />
       </div>
     </div>
-  </div>
+  </app-page-warpper>
 </template>
 
 <script lang="ts">
@@ -38,11 +40,9 @@ import { computed, defineComponent } from 'vue'
 import { useRouter } from 'vue-router'
 import { useErrorLogStore } from '@/store/modules/errorLog'
 import { useTabsStore } from '@/store/modules/tabs'
-import { ElTag } from 'element-plus'
 
 export default defineComponent({
   name: 'ErrorLogPage',
-  components: { ElTag },
   setup() {
     const router = useRouter()
     const tabStroe = useTabsStore()
