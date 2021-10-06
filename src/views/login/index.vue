@@ -1,23 +1,8 @@
 <template>
-  <div id="appLoginPage" class="h-screen flex justify-center items-center">
-    <div class="w-1/2">
-      <div class="w-300px mx-auto text-white flex flex-wrap items-center">
-        <p class="text-3xl">vue3-admin-template</p>
-        <img src="@/assets/logo.png" class="w-20 h-20" />
-        <ul class="text-left text-gray-300 mt-10 ml-10 list-disc">
-          <li>vite</li>
-          <li>vue3</li>
-          <li>typescript</li>
-          <li>element plus</li>
-          <li>windicss</li>
-        </ul>
-      </div>
-    </div>
-    <div class="w-1/2">
-      <el-form class="w-300px mx-auto">
-        <el-form-item>
-          <label class="text-2xl">登录</label>
-        </el-form-item>
+  <div id="appLoginPage" class="h-screen flex flex-col justify-center items-center bg-light-500 dark:bg-dark-700">
+    <div class="w-100">
+      <p class="text-3xl mb-10 text-center">vue3-admin-template</p>
+      <el-form class="w-80 mx-auto">
         <el-form-item>
           <el-input placeholder="account" v-model="formModule.account">
             <template #prepend>
@@ -36,6 +21,18 @@
           <el-button type="primary" :loading="loading" class="w-full" @click="doLogin">login</el-button>
         </el-form-item>
       </el-form>
+    </div>
+    <div class="w-80">
+      <div class="w-300px mx-auto flex flex-wrap items-center">
+        <img src="@/assets/logo.png" class="w-20 h-20" />
+        <ul class="text-left mt-10 ml-10 list-disc">
+          <li>vite</li>
+          <li>vue3</li>
+          <li>typescript</li>
+          <li>element plus</li>
+          <li>windicss</li>
+        </ul>
+      </div>
     </div>
   </div>
 </template>
@@ -84,22 +81,15 @@ export default defineComponent({
 </script>
 
 <style lang="scss">
-#appLoginPage {
-  --el-color-white: #fff;
-  --el-color-black: #000;
-}
-#appLoginPage::after {
-  position: absolute;
-  top: 0;
-  left: 0;
-  width: 100%;
-  height: 100%;
-  margin-left: -40%;
-  background-image: url('@/assets/login-page-bg.svg');
-  background-position: 100%;
-  background-repeat: no-repeat;
-  background-size: auto 100%;
-  content: '';
-  z-index: -1;
+html.dark {
+  #appLoginPage {
+    .el-input__inner {
+      background-color: #232b3c;
+    }
+    .el-input-group__prepend {
+      background-color: #232b3c;
+      border-color: unset;
+    }
+  }
 }
 </style>

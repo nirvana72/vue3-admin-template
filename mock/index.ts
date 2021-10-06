@@ -10,7 +10,7 @@ export function setupMockServer(): void {
     Mock.mock(m.api, m.method, m.handle)
   })
 
-  Mock.setup({ timeout: 1000 })
+  Mock.setup({ timeout: 500 })
 }
 
 export type MockType = 'get' | 'post' | 'put' | 'delete'

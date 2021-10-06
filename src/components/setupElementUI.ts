@@ -16,7 +16,7 @@ import {
 } from 'element-plus'
 
 export function setupElementUI(app: App): void {
-  app.config.globalProperties.$ELEMENT = { size: 'mini', zIndex: 3000 }
+  app.config.globalProperties.$ELEMENT = { size: 'small', zIndex: 3000 }
   app.use(ElButton)
   app.use(ElInput)
   app.use(ElSelect)
