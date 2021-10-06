@@ -72,7 +72,7 @@ import { popMenuItems } from './popMenuItems'
 import { cloneDeep } from 'lodash'
 
 export default defineComponent({
-  name: 'DemoPage1',
+  name: 'DemoTable',
   components: { PopMenu },
   setup() {
     const query = reactive<DemoPage1ReqModule>({

@@ -1,25 +1,13 @@
-import { MockMethod } from '../index'
+import { MockMethod } from '../../index'
 import { Random } from 'mockjs'
-import { IChartData } from '@/views/home/chart-line.vue'
+
+interface IChartData {
+  email: number[]
+  unionAds: number[]
+  videoAds: number[]
+}
 
 const modules: MockMethod[] = [
-  {
-    api: /\/login$/,
-    method: 'post',
-    handle: (): any => {
-      return {
-        ret: 1,
-        msg: 'success',
-        data: {
-          userId: 111,
-          realName: 'nijia',
-          avatar: '/avatar/3.png',
-          token: 'aaaaaaaa',
-          refToken: 'bbbbbbbbbbb',
-        },
-      }
-    },
-  },
   {
     api: /\/dashboard$/,
     method: 'get',

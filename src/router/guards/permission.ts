@@ -10,7 +10,7 @@ export function setPermissionGuard(router: Router): void {
   const permissionStore = usePermissionStore()
   const sessionStore = useSessionStore()
 
-  router.beforeEach((to, _, next) => {
+  router.beforeEach(async (to, _, next) => {
     if (to.path === '/logout') {
       return
     }
@@ -26,7 +26,7 @@ export function setPermissionGuard(router: Router): void {
     }
 
     if (!permissionStore.getIsInitRoute) {
-      const routers = permissionStore.buildAsyncRouter()
+      const routers = await permissionStore.buildAsyncRouter()
 
       routers.forEach((route: AppRouteModule) => {
         router.addRoute(route as unknown as RouteRecordRaw)

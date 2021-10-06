@@ -1,10 +1,11 @@
 import Mock from 'mockjs'
 
 import DemoMocks from './modules/demo'
-import SysMocks from './modules/sys'
+import SysIndexMocks from './modules/sys/index'
+import SysAdminMocks from './modules/sys/admin'
 
 export function setupMockServer(): void {
-  const modules = [...DemoMocks, ...SysMocks]
+  const modules = [...DemoMocks, ...SysIndexMocks, ...SysAdminMocks]
   modules.forEach((m) => {
     Mock.mock(m.api, m.method, m.handle)
   })

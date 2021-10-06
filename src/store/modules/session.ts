@@ -9,16 +9,16 @@ export interface UserSession {
   refToken: string
 }
 
+export interface UserRole {
+  id: string
+  name: string
+}
+
 interface SessionState {
   session: Nullable<UserSession>
   time: string
   role: UserRole
   auths: string[]
-}
-
-interface UserRole {
-  id: string
-  name: string
 }
 
 const STORE_KEY = 'app-session'
@@ -49,6 +49,15 @@ export const useSessionStore = defineStore({
       }
       return this.session!
     },
+    getRole(): UserRole {
+      return this.role
+    },
+    getAuths(): string[] {
+      return this.auths
+    },
+    getTime(): string {
+      return this.time
+    },
     isLogin(): boolean {
       return this.getSession.userId > 0
     },
@@ -58,6 +67,10 @@ export const useSessionStore = defineStore({
       this.session = session
       this.time = new Date().getTime().toString()
       sessionStorage.setItem(STORE_KEY, JSON.stringify(session))
+    },
+    setRoleAndAuths(role: UserRole, auths: string[]) {
+      this.role = role
+      this.auths = auths
     },
     updateToken(token: string, refToken: string) {
       this.getSession.token = token

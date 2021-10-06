@@ -3,6 +3,21 @@ import type { Router, RouteRecordRaw, RouteRecordNormalized } from 'vue-router'
 import { createRouter, createWebHashHistory } from 'vue-router'
 import { sortBy } from 'lodash'
 
+// 根据权限列表，过滤出可用的路由
+export function filterRoutesWithAuths(list: AppRouteModule[], auths: string[]): AppRouteModule[] {
+  const ret: AppRouteModule[] = []
+  list.forEach((r) => {
+    if (r.children && r.children.length > 0) {
+      r.children = filterRoutesWithAuths(r.children, auths)
+    }
+    const hasAtuh = !r.auth || auths.includes(r.auth)
+    if (hasAtuh) {
+      ret.push(r)
+    }
+  })
+  return ret
+}
+
 // 将路由对象转成菜单对像
 export function transformRouteToMenu(
   hideSingleChildMenu: boolean,
