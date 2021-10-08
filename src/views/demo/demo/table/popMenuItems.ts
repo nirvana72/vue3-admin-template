@@ -19,7 +19,7 @@ export const popMenuItems: IMenuItem<DempPage1RspItemModule>[] = [
     label: '删除',
     type: 'danger',
     auth(row: DempPage1RspItemModule): boolean {
-      return row.id > 0
+      return row.id % 3 === 0
     },
     click(row: DempPage1RspItemModule): void {
       alert('删除, id=' + row.id)

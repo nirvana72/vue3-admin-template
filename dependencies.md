@@ -7,12 +7,12 @@ docker run --name=nodejs -p 3000:3000 -v E:/workspace:/workspace -itd node:14.18
 ```
 
 - node v14.18.0
-- npm 7.24.1
+- npm 8.0.0
 
 ### npm 更新
 
 ```
-npm install -g npm@7.24.1
+npm install -g npm@8.0.0
 
 npm config set registry https://registry.npm.taobao.org
 ```

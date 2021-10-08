@@ -248,6 +248,7 @@ ul#appHeaderStateTools {
   border-bottom: 1px solid var(--appHeaderTabsBorderColor);
 
   .el-tabs__header {
+    margin-left: 2px;
     margin-right: 80px; // 让出tools空位
   }
   .el-tabs__nav {

@@ -101,7 +101,7 @@ function processStackMsg(error: Error) {
   if (!error.stack) {
     return ''
   }
-  let stack = error.stack.replace(/at/gi, '<br>')
+  let stack = error.stack.replace(/ at /gi, '<br>at ')
   // .replace(/\n/gi, '') // Remove line breaks to save the size of the transmitted content
   // .replace(/\bat\b/gi, '@') // At in chrome, @ in ff
   // .split('@') // Split information with @

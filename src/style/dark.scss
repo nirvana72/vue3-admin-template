@@ -20,15 +20,15 @@ html.dark {
   --appColor-1: #f3f4f6;
   --appColor-0: #f9fafb;
 
-  --appTextColor: var(--appColor-4);
-  --appPanelBgColor: #181818;
+  --appTextColor: var(--appColor-4); // 字体颜色
+  --appPanelBgColor: #181818; // 浮于背景上的面板色
 
   #appAside,
   ul.el-menu--popup {
-    --appAsideTextColor: var(--appColor-4);
-    --appAsideTextColorHover: var(--el-color-black);
-    --appAsideBgColor: var(--appColor-8);
-    --appAsideSubBgColor: #2d2d2d;
+    --appAsideTextColor: var(--appColor-4); // 侧边菜单字体色
+    --appAsideTextColorHover: var(--el-color-black); // 侧边菜单字体hover色
+    --appAsideBgColor: var(--appColor-8); // 侧边菜单背景色
+    --appAsideSubBgColor: #2d2d2d; // 侧边菜单子菜单背景色
   }
 
   #appHeader {
@@ -39,11 +39,9 @@ html.dark {
 
   // ------------------------------------------------
 
-  --el-text-color-primary: #c0c4cc;
-  --el-text-color-regular: #909399;
-  --el-text-color-secondary: #606266;
-  --el-text-color-placeholder: #303133;
-  --el-border-color-lighter: #1f2937;
+  --el-text-color-primary: var(--appTextColor);
+  --el-text-color-regular: var(--appTextColor);
+  --el-border-color-lighter: var(--appColor-7);
   --el-border-color-base: var(--appColor-5);
   --el-background-color-base: var(--appColor-5);
 
@@ -68,7 +66,6 @@ html.dark {
     border-bottom-color: var(--appColor-6);
   }
   .el-table {
-    --el-table-font-color: var(--appTextColor);
     --el-table-header-background-color: var(--appPanelBgColor);
     --el-table-tr-background-color: var(--appPanelBgColor);
     --el-table-row-hover-background-color: var(--appColor-7);
