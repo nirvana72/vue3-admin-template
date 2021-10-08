@@ -2,7 +2,7 @@
   <app-page-warpper>
     <template #header>
       <div class="p-5 flex justify-center flex-wrap">
-        <div class="w-60 pr-2">
+        <div v-auth="'123'" class="w-60 pr-2">
           <el-input v-model="query.account" placeholder="账号"></el-input>
         </div>
         <div class="w-60 pr-2">
@@ -80,7 +80,7 @@ export default defineComponent({
       limit: 20,
       account: '',
       realName: '',
-      roleId: '',
+      roleId: 'admin',
     })
 
     const queryClone = cloneDeep(toRaw(query))

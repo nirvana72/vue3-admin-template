@@ -7,6 +7,7 @@ import { setupElementUI } from '@/components/setupElementUI'
 import { setupComponents } from '@/components/setupComponents'
 import { setupStore } from '@/store'
 import { setupRouter } from '@/router'
+import { setupDirectives } from '@/directives'
 import { setupErrorHandle } from '@/utils/useErrorHandle'
 
 import 'virtual:windi.css'
@@ -22,6 +23,8 @@ function bootstrap() {
   setupStore(app)
 
   setupRouter(app)
+
+  setupDirectives(app)
 
   setupErrorHandle(app)
 
