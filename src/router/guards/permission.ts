@@ -11,10 +11,6 @@ export function setPermissionGuard(router: Router): void {
   const sessionStore = useSessionStore()
 
   router.beforeEach(async (to, _, next) => {
-    if (to.path === '/logout') {
-      return
-    }
-
     if (whiteList.includes(to.path)) {
       next()
       return

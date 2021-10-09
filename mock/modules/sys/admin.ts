@@ -49,6 +49,28 @@ const modules: MockMethod[] = [
       }
     },
   },
+  {
+    api: /\/sys\/admin\/change_avatar$/,
+    method: 'post',
+    handle: (): any => {
+      return {
+        ret: 1,
+        msg: 'success',
+        data: {},
+      }
+    },
+  },
+  {
+    api: /\/sys\/admin\/change_password$/,
+    method: 'post',
+    handle: (): any => {
+      return {
+        ret: 1,
+        msg: 'success',
+        data: {},
+      }
+    },
+  },
 ]
 
 export default modules

@@ -20,6 +20,28 @@ export function getRoleAndAuths(): Promise<getRoleAndAuthsRes> {
 }
 
 // -------------------------------------------------------------
+// 修改头像
+
+export function changeAvatarApi(avatar: string): Promise<void> {
+  return new Promise((resolve) => {
+    http.post('/sys/admin/change_avatar', { data: { avatar } }).then(() => {
+      resolve()
+    })
+  })
+}
+
+// -------------------------------------------------------------
+// 修改密码
+
+export function changePasswordApi(oldPwd: string, newPwd: string): Promise<void> {
+  return new Promise((resolve) => {
+    http.post('/sys/admin/change_password', { data: { oldPwd, newPwd } }).then(() => {
+      resolve()
+    })
+  })
+}
+
+// -------------------------------------------------------------
 // 刷新jwt token
 
 export interface refreshTokenRes {

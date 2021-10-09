@@ -6,7 +6,7 @@
       </ElBadge>
     </li>
     <li v-if="!isMobile" title="设置">
-      <Icon icon="icon-park-outline:setting-config" @click="settingRef?.show()" />
+      <Icon icon="icon-park-outline:setting-config" @click="showAppSetting" />
     </li>
     <li v-if="!isMobile" title="全屏">
       <FullScreen />
@@ -26,16 +26,16 @@
       <Icon icon="akar-icons:github-fill" @click="showGitHub" />
     </li>
   </ul>
-  <AppSetting ref="settingRef" />
+  <AppSetting v-if="appSettingAsync" ref="appSettingRef" />
 </template>
 
 <script lang="ts">
-import { computed, defineComponent, ref } from 'vue'
+import { computed, defineAsyncComponent, defineComponent, ref } from 'vue'
 import DarkMode from './darkmode.vue'
 import FullScreen from './fullScreen.vue'
 import UserInfo from './userInfo.vue'
 import { Icon } from '@iconify/vue'
-import AppSetting, { AppSettingModue } from '@/layout/setting/index.vue'
+import { IAppSetting } from '@/layout/setting/index.vue'
 import { ElBadge, ElMessageBox } from 'element-plus'
 import { useAppStore } from '@/store/modules/app'
 import { useErrorLogStore } from '@/store/modules/errorLog'
@@ -43,11 +43,18 @@ import { useRouter } from 'vue-router'
 
 export default defineComponent({
   name: 'AppHeaderTools',
-  components: { DarkMode, UserInfo, FullScreen, Icon, AppSetting, ElBadge },
+  components: {
+    DarkMode,
+    UserInfo,
+    FullScreen,
+    Icon,
+    AppSetting: defineAsyncComponent(() => import('@/layout/setting/index.vue')),
+    ElBadge,
+  },
   setup() {
     const appStore = useAppStore()
     const errorLogStore = useErrorLogStore()
-    const settingRef = ref<AppSettingModue>()
+
     const errorCount = computed(() => errorLogStore.getErrorCount)
     const isMobile = computed(() => appStore.getSetting.isMobile)
     const router = useRouter()
@@ -64,13 +71,22 @@ export default defineComponent({
       router.push('/error-log')
     }
 
+    const appSettingAsync = ref(false)
+    const appSettingRef = ref<IAppSetting>()
+    function showAppSetting() {
+      appSettingAsync.value = true
+      appSettingRef.value?.show()
+    }
+
     return {
       isMobile,
       errorCount,
-      settingRef,
       showGitHub,
       notificationClick,
       showErrorInfo,
+      appSettingRef,
+      appSettingAsync,
+      showAppSetting,
     }
   },
 })

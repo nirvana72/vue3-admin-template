@@ -5,20 +5,23 @@
 </template>
 
 <script lang="ts">
-import { defineComponent } from 'vue'
+import { computed, defineComponent } from 'vue'
 import { ElAvatar } from 'element-plus'
 import { useSessionStore } from '@/store/modules/session'
+import { useRouter } from 'vue-router'
 
 export default defineComponent({
   name: 'UserInfo',
   components: { ElAvatar },
   setup() {
-    const {
-      getSession: { realName, avatar },
-    } = useSessionStore()
+    const sessionStore = useSessionStore()
+    const realName = sessionStore.getSession.realName
+    const avatar = computed(() => sessionStore.getSession.avatar + '?' + sessionStore.getTime)
+
+    const router = useRouter()
 
     function avatarClick() {
-      alert('avatarClick')
+      router.push({ name: 'ProfileInfo' })
     }
 
     return {

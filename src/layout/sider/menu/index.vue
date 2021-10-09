@@ -1,7 +1,7 @@
 <template>
   <ElMenu :collapse="isCollapse" :collapseTransition="false" :router="true" :defaultActive="curPath">
     <AppMenuItem :items="menuList" />
-    <ElMenuItem @click="doLogout" index="/logout">
+    <ElMenuItem @click="doLogout" index="">
       <Icon icon="clarity:power-solid" />
       <template #title>退出登录</template>
     </ElMenuItem>
@@ -31,9 +31,7 @@ export default defineComponent({
 
     watch(
       () => appStore.getSetting.hideSingleChildMenu,
-      () => {
-        permissionStore.buildMenu()
-      },
+      () => permissionStore.buildMenu(),
     )
 
     function doLogout() {

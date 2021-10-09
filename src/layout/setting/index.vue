@@ -34,7 +34,7 @@ import { useAppStore } from '@/store/modules/app'
 import { useTabsStore } from '@/store/modules/tabs'
 import { ElSwitch } from 'element-plus'
 
-export interface AppSettingModue {
+export interface IAppSetting {
   show: () => void
 }
 
@@ -44,7 +44,7 @@ export default defineComponent({
   setup() {
     const { getSetting: setting } = useAppStore()
     const tabsStroe = useTabsStore()
-    const visible = ref<boolean>(false)
+    const visible = ref<boolean>(true)
 
     function show() {
       visible.value = true

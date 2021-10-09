@@ -93,4 +93,11 @@ html.dark {
     --el-input-font-color: var(--appColor-1);
     --el-input-placeholder-color: var(--appColor-5);
   }
+  .el-input__inner {
+    background-color: var(--appColor-9);
+  }
+  .el-input-group__prepend {
+    background-color: var(--appColor-9);
+    border-color: unset;
+  }
 }

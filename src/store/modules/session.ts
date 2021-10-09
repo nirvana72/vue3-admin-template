@@ -68,6 +68,12 @@ export const useSessionStore = defineStore({
       this.time = new Date().getTime().toString()
       sessionStorage.setItem(STORE_KEY, JSON.stringify(session))
     },
+    setAvatar(avatar: string) {
+      if (this.session) {
+        this.session.avatar = avatar
+        this.time = new Date().getTime().toString()
+      }
+    },
     setRoleAndAuths(role: UserRole, auths: string[]) {
       this.role = role
       this.auths = auths

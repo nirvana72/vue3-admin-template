@@ -1,17 +1,17 @@
 <template>
-  <div id="appLoginPage" class="h-screen flex flex-col justify-center items-center bg-light-500 dark:bg-dark-700">
-    <div class="w-100">
+  <div class="h-screen flex flex-col justify-center items-center bg-light-500 dark:bg-dark-700">
+    <div class="px-20 py-10 rounded-xl bg-gray-300 dark:bg-gray-800">
       <p class="text-3xl mb-10 text-center">vue3-admin-template</p>
       <el-form class="w-80 mx-auto">
         <el-form-item>
-          <el-input placeholder="account" v-model="formModule.account">
+          <el-input placeholder="account" v-model="formModule.account" size="medium">
             <template #prepend>
               <i class="el-icon-user"></i>
             </template>
           </el-input>
         </el-form-item>
         <el-form-item>
-          <el-input placeholder="password" type="password" v-model="formModule.password">
+          <el-input placeholder="password" type="password" v-model="formModule.password" size="medium">
             <template #prepend>
               <i class="el-icon-lock"></i>
             </template>
@@ -79,17 +79,3 @@ export default defineComponent({
   },
 })
 </script>
-
-<style lang="scss">
-html.dark {
-  #appLoginPage {
-    .el-input__inner {
-      background-color: #232b3c;
-    }
-    .el-input-group__prepend {
-      background-color: #232b3c;
-      border-color: unset;
-    }
-  }
-}
-</style>
