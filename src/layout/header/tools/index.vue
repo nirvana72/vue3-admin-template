@@ -32,8 +32,8 @@
 <script lang="ts">
 import { computed, defineAsyncComponent, defineComponent, ref } from 'vue'
 import DarkMode from './darkmode.vue'
-import FullScreen from './fullScreen.vue'
-import UserInfo from './userInfo.vue'
+import FullScreen from './full-screen.vue'
+import UserInfo from './user-info.vue'
 import { Icon } from '@iconify/vue'
 import { IAppSetting } from '@/layout/setting/index.vue'
 import { ElBadge, ElMessageBox } from 'element-plus'

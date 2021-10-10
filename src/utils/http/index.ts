@@ -30,7 +30,7 @@ function createAxios() {
       // 是否返回原生响应头 比如：需要获取响应头时使用该属性
       isReturnNativeResponse: false,
       // 消息提示类型
-      errorMessageMode: 'message',
+      errorMessageMode: 'modal',
       // 是否携带token
       withToken: true,
     },

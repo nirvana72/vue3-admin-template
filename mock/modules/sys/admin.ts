@@ -65,9 +65,8 @@ const modules: MockMethod[] = [
     method: 'post',
     handle: (): any => {
       return {
-        ret: 1,
-        msg: 'success',
-        data: {},
+        ret: -1,
+        msg: '原始密码不正确',
       }
     },
   },
