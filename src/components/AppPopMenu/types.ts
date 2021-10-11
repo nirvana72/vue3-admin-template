@@ -1,10 +1,10 @@
 import { ButtonType } from 'element-plus'
 
-export interface IPopMenu {
+export interface IAppPopMenu {
   show: (e: MouseEvent, row: any) => void
 }
 
-export interface IMenuItem<T> {
+export interface IAppPopMenuItem<T> {
   type?: ButtonType
   auth?: (row: T) => boolean
   label: string

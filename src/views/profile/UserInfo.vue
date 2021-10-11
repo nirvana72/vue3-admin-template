@@ -42,19 +42,19 @@
 import { computed, defineAsyncComponent, defineComponent, ref } from 'vue'
 import { useRouter } from 'vue-router'
 import { useSessionStore } from '@/store/modules/session'
-import { IChangeAvatar } from './change-avatar.vue'
+import { IChangeAvatar } from './ChangeAvatar.vue'
 
 export default defineComponent({
-  name: 'ProfileInfo',
+  name: 'ProfileUserInfo',
   components: {
-    ChangeAvatar: defineAsyncComponent(() => import('./change-avatar.vue')),
+    ChangeAvatar: defineAsyncComponent(() => import('./ChangeAvatar.vue')),
   },
   setup() {
     const router = useRouter()
     const sessionStore = useSessionStore()
 
     function changePassword() {
-      router.push({ name: 'ProfilePassword' })
+      router.push({ name: 'ProfileChangePassword' })
     }
 
     const avatar = computed(() => sessionStore.getSession.avatar + '?' + sessionStore.getTime)

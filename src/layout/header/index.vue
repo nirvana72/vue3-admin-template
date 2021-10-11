@@ -10,7 +10,7 @@
 <script lang="ts">
 import { defineComponent, computed } from 'vue'
 import { useAppStore, MenuState } from '@/store/modules/app'
-import AppBreadcrumb from './breadcrumb.vue'
+import AppBreadcrumb from './Breadcrumb.vue'
 import AppPageTabs from './tabs/index.vue'
 import Tools from './tools/index.vue'
 import { Icon } from '@iconify/vue'

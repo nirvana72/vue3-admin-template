@@ -1,5 +1,5 @@
 import { DempPage1RspItemModule } from '@/api/demo/index'
-import { IMenuItem } from '@/components/pop-menu/types'
+import { IMenuItem } from '@/components/AppPopMenu/types'
 
 export const popMenuItems: IMenuItem<DempPage1RspItemModule>[] = [
   {

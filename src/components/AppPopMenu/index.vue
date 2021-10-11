@@ -8,13 +8,13 @@
 
 <script lang="ts">
 import { defineComponent, reactive, PropType, ref } from 'vue'
-import { IMenuItem } from './types'
+import { IAppPopMenuItem } from './Types'
 
 export default defineComponent({
   name: 'PopMenu',
   props: {
     items: {
-      type: Array as PropType<IMenuItem<any>[]>,
+      type: Array as PropType<IAppPopMenuItem<any>[]>,
       default: () => [],
     },
   },
@@ -25,7 +25,7 @@ export default defineComponent({
       y: '',
     })
 
-    const menus = ref<IMenuItem<any>[]>()
+    const menus = ref<IAppPopMenuItem<any>[]>()
 
     let rowTarget: any
 
@@ -44,7 +44,7 @@ export default defineComponent({
       state.visible = !state.visible
     }
 
-    function menuClick(item: IMenuItem<any>) {
+    function menuClick(item: IAppPopMenuItem<any>) {
       state.visible = false
       item.click(rowTarget)
     }

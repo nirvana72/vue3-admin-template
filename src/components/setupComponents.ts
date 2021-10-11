@@ -1,7 +1,7 @@
 import type { App } from 'vue'
-import PageWarpper from './pageWarpper/index.vue'
+import AppPageWarpper from './AppPageWarpper.vue'
 
 // 注册常用组件
 export function setupComponents(app: App): void {
-  app.component('app-page-warpper', PageWarpper)
+  app.component('app-page-warpper', AppPageWarpper)
 }

@@ -17,5 +17,5 @@ export default { name: 'MultipleMenuItemsLv3' }
 </script>
 
 <script lang="ts" setup>
-import AddNum from '../components/add-num.vue'
+import AddNum from '../components/AddNum.vue'
 </script>

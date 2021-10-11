@@ -1,9 +1,9 @@
 <template>
-  <Logo />
-  <Menu />
+  <AppSiderLogo />
+  <AppSiderMenu />
 </template>
 
 <script lang="ts" setup>
-import Logo from './logo.vue'
-import Menu from './menu/index.vue'
+import AppSiderLogo from './TheSiderLogo.vue'
+import AppSiderMenu from './TheSiderMenu.vue'
 </script>

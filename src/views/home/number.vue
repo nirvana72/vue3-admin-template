@@ -11,9 +11,9 @@
 </template>
 
 <script lang="ts" setup>
-import { defineProps } from 'vue'
 import { Icon } from '@iconify/vue'
 
+// eslint-disable-next-line no-undef
 defineProps({
   title: { type: String, default: '' },
   icon: { type: String, default: '' },

@@ -35,7 +35,7 @@ const REDIRECT_ROUTE: AppRouteModule = {
     {
       path: '/redirect/:path(.*)',
       name: 'RedirectTo',
-      component: () => import('@/views/common/redirect.vue'),
+      component: () => import('@/views/common/Redirect.vue'),
       meta: { title: 'Redirect', hiddenTab: true },
     },
   ],
@@ -67,7 +67,7 @@ const ERROR_Log_PAGE: AppRouteModule = {
     {
       name: 'ErrorLogPage',
       path: '',
-      component: () => import('@/views/exception/error-log.vue'),
+      component: () => import('@/views/exception/ErrorLog.vue'),
       meta: { title: '错误信息' },
     },
   ],

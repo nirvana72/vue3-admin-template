@@ -27,7 +27,7 @@ import { useRouter } from 'vue-router'
 import { useTabsStore } from '@/store/modules/tabs'
 
 export default defineComponent({
-  name: 'ProfilePassword',
+  name: 'ProfileChangePassword',
   setup() {
     const router = useRouter()
     const tabStroe = useTabsStore()

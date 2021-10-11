@@ -58,7 +58,7 @@
       </div>
     </el-card>
 
-    <PopMenu ref="popMenu" :items="popMenuItems" />
+    <AppPopMenu ref="popMenu" :items="popMenuItems" />
   </app-page-warpper>
 </template>
 
@@ -66,14 +66,14 @@
 import { defineComponent, onMounted, reactive, ref, toRaw } from 'vue'
 import { ElLoading } from 'element-plus'
 import { DemoPage1ReqModule, DemoPage1RspModule, DempPage1RspItemModule, getDemoPageData } from '@/api/demo/index'
-import PopMenu from '@/components/popMenu/index.vue'
-import { IPopMenu } from '@/components/popMenu/types'
+import AppPopMenu from '@/components/AppPopMenu/index.vue'
+import { IAppPopMenu } from '@/components/AppPopMenu/types'
 import { popMenuItems } from './popMenuItems'
 import { cloneDeep } from 'lodash'
 
 export default defineComponent({
   name: 'DemoTable',
-  components: { PopMenu },
+  components: { AppPopMenu },
   setup() {
     const query = reactive<DemoPage1ReqModule>({
       page: 1,
@@ -87,7 +87,7 @@ export default defineComponent({
     delete queryClone.page
     delete queryClone.limit
 
-    const popMenu = ref<IPopMenu>()
+    const popMenu = ref<IAppPopMenu>()
 
     const datasource = reactive<DemoPage1RspModule>({
       list: [],

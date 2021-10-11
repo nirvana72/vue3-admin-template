@@ -30,10 +30,10 @@
 <script lang="ts">
 import { defineComponent, onMounted, ref } from 'vue'
 import { ElRow, ElCol } from 'element-plus'
-import Header from './header.vue'
-import ChartLine, { IChartData, IChartLine } from './chart-line.vue'
-import ChartBar, { IChartBar } from './chart-bar.vue'
-import Number from './number.vue'
+import Header from './Header.vue'
+import ChartLine, { IChartData, IChartLine } from './ChartLine.vue'
+import ChartBar, { IChartBar } from './ChartBar.vue'
+import Number from './Number.vue'
 import { http } from '@/utils/http'
 
 export default defineComponent({

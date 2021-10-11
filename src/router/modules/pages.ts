@@ -21,7 +21,7 @@ const router: AppRouteModule = {
     {
       path: 'error-log',
       name: 'PagesErrorLog',
-      component: () => import('@/views/demo/pages/error-log.vue'),
+      component: () => import('@/views/demo/pages/ErrorLog.vue'),
       meta: { title: '错误捕获' },
     },
   ],

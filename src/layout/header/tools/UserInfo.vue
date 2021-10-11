@@ -21,7 +21,7 @@ export default defineComponent({
     const router = useRouter()
 
     function avatarClick() {
-      router.push({ name: 'ProfileInfo' })
+      router.push({ name: 'ProfileUserInfo' })
     }
 
     return {

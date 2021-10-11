@@ -13,7 +13,7 @@ import { defineComponent, computed, watch } from 'vue'
 import { ElMenu, ElMenuItem, ElMessageBox } from 'element-plus'
 import { useAppStore, MenuState } from '@/store/modules/app'
 import { usePermissionStore } from '@/store/modules/permission'
-import AppMenuItem from './item.vue'
+import AppMenuItem from './TheSiderMenuItem.vue'
 import { useRouter } from 'vue-router'
 import { Icon } from '@iconify/vue'
 
