@@ -2,7 +2,7 @@
   <ElMenu :collapse="isCollapse" :collapseTransition="false" :router="true" :defaultActive="curPath">
     <AppMenuItem :items="menuList" />
     <ElMenuItem @click="doLogout" index="">
-      <Icon icon="clarity:power-solid" />
+      <app-icon icon="clarity:power-solid" />
       <template #title>退出登录</template>
     </ElMenuItem>
   </ElMenu>
@@ -15,11 +15,10 @@ import { useAppStore, MenuState } from '@/store/modules/app'
 import { usePermissionStore } from '@/store/modules/permission'
 import AppMenuItem from './TheSiderMenuItem.vue'
 import { useRouter } from 'vue-router'
-import { Icon } from '@iconify/vue'
 
 export default defineComponent({
   name: 'AppMenu',
-  components: { ElMenu, ElMenuItem, Icon, AppMenuItem },
+  components: { ElMenu, ElMenuItem, AppMenuItem },
   setup() {
     const router = useRouter()
     const appStore = useAppStore()

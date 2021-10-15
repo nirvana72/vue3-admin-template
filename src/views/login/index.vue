@@ -1,37 +1,64 @@
 <template>
-  <div class="h-screen flex flex-col justify-center items-center bg-light-500 dark:bg-dark-700">
-    <div class="px-20 py-10 rounded-xl bg-gray-300 dark:bg-gray-800">
-      <p class="text-3xl mb-10 text-center">vue3-admin-template</p>
-      <el-form class="w-80 mx-auto">
-        <el-form-item>
-          <el-input placeholder="account" v-model="formModule.account" size="medium">
-            <template #prepend>
-              <i class="el-icon-user"></i>
-            </template>
-          </el-input>
-        </el-form-item>
-        <el-form-item>
-          <el-input placeholder="password" type="password" v-model="formModule.password" size="medium">
-            <template #prepend>
-              <i class="el-icon-lock"></i>
-            </template>
-          </el-input>
-        </el-form-item>
-        <el-form-item>
-          <el-button type="primary" :loading="loading" class="w-full" @click="doLogin">login</el-button>
-        </el-form-item>
-      </el-form>
+  <div class="min-h-screen bg-gray-100 dark:bg-gray-800 py-6 flex flex-col justify-center sm:py-12">
+    <div
+      class="
+        absolute
+        top-5
+        right-5
+        w-10
+        h-10
+        flex
+        items-center
+        justify-center
+        bg-gray-200
+        rounded
+        cursor-pointer
+        dark:bg-gray-900
+      "
+    >
+      <DarkMode class="text-2xl" />
     </div>
-    <div class="w-80">
-      <div class="w-300px mx-auto flex flex-wrap items-center">
-        <img src="@/assets/logo.png" class="w-20 h-20" />
-        <ul class="text-left mt-10 ml-10 list-disc">
-          <li>vite</li>
-          <li>vue3</li>
-          <li>typescript</li>
-          <li>element plus</li>
-          <li>windicss</li>
-        </ul>
+    <div class="relative py-3 sm:max-w-xl sm:mx-auto">
+      <div
+        class="
+          absolute
+          inset-0
+          bg-gradient-to-r
+          from-cyan-400
+          to-cyan-600
+          shadow-lg
+          transform
+          -skew-y-6
+          sm:rounded-3xl sm:p-20 sm:skew-y-0 sm:-rotate-6 sm:rounded-3xl
+          dark:from-blue-gray-500 dark:to-blue-gray-700
+        "
+      ></div>
+      <div class="relative px-4 py-10 bg-white dark:bg-gray-900 shadow-lg sm:rounded-3xl sm:p-20">
+        <div class="max-w-md mx-auto">
+          <div class="flex items-center">
+            <img src="@/assets/logo.png" class="w-10 mr-5" />
+            <h1 class="text-2xl">{{ title }}</h1>
+          </div>
+          <el-form class="mt-10 w-80 mx-auto">
+            <el-form-item>
+              <el-input v-model="formModule.account" placeholder="account" size="medium">
+                <template #prepend>
+                  <i class="el-icon-user"></i>
+                </template>
+              </el-input>
+            </el-form-item>
+            <el-form-item>
+              <el-input v-model="formModule.password" placeholder="password" type="password" size="medium">
+                <template #prepend>
+                  <i class="el-icon-lock"></i>
+                </template>
+              </el-input>
+            </el-form-item>
+            <el-form-item>
+              <el-button type="primary" :loading="loading" class="w-full" @click="doLogin">login</el-button>
+            </el-form-item>
+          </el-form>
+        </div>
       </div>
     </div>
   </div>
@@ -41,15 +68,19 @@
 import { useSessionStore, UserSession } from '@/store/modules/session'
 import { useRouter } from 'vue-router'
 import { ElMessage } from 'element-plus'
+import DarkMode from '@/layout/header/tools/DarkMode.vue'
 import { defineComponent, reactive, ref, toRaw } from 'vue'
+import { useAppEnv } from '@/utils/useAppEnv'
 import { http } from '@/utils/http'
 
 export default defineComponent({
   name: 'AppLogin',
+  components: { DarkMode },
   setup() {
     const sessionStore = useSessionStore()
     const router = useRouter()
     const loading = ref(false)
+    const { VITE_APP_TITLE: title } = useAppEnv()
 
     const formModule = reactive({
       account: 'admin',
@@ -74,6 +105,7 @@ export default defineComponent({
     return {
       loading,
       formModule,
+      title,
       doLogin,
     }
   },

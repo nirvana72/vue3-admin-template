@@ -2,11 +2,11 @@
   <ul id="appHeaderStateTools">
     <li title="通知" class="mt-1">
       <ElBadge value="5">
-        <Icon icon="akar-icons:bell" @click="notificationClick" />
+        <app-icon icon="akar-icons:bell" @click="notificationClick" />
       </ElBadge>
     </li>
     <li v-if="!isMobile" title="设置">
-      <Icon icon="icon-park-outline:setting-config" @click="showAppSetting" />
+      <app-icon icon="icon-park-outline:setting-config" @click="showAppSetting" />
     </li>
     <li v-if="!isMobile" title="全屏">
       <FullScreen />
@@ -16,14 +16,14 @@
     </li>
     <li v-if="errorCount > 0" title="出错信息" class="mt-1">
       <ElBadge :value="errorCount">
-        <Icon icon="ant-design:bug-filled" class="text-red-500" @click="showErrorInfo" />
+        <app-icon icon="ant-design:bug-filled" class="text-red-500" @click="showErrorInfo" />
       </ElBadge>
     </li>
     <li title="个人中心">
       <UserInfo />
     </li>
     <li title="github">
-      <Icon icon="akar-icons:github-fill" @click="showGitHub" />
+      <app-icon icon="akar-icons:github-fill" @click="showGitHub" />
     </li>
   </ul>
   <AppSetting v-if="appSettingAsync" ref="appSettingRef" />
@@ -34,7 +34,6 @@ import { computed, defineAsyncComponent, defineComponent, ref } from 'vue'
 import DarkMode from './DarkMode.vue'
 import FullScreen from './FullScreen.vue'
 import UserInfo from './UserInfo.vue'
-import { Icon } from '@iconify/vue'
 import { IAppSetting } from '@/layout/setting/index.vue'
 import { ElBadge, ElMessageBox } from 'element-plus'
 import { useAppStore } from '@/store/modules/app'
@@ -47,7 +46,6 @@ export default defineComponent({
     DarkMode,
     UserInfo,
     FullScreen,
-    Icon,
     AppSetting: defineAsyncComponent(() => import('@/layout/setting/index.vue')),
     ElBadge,
   },

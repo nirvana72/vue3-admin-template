@@ -1,6 +1,6 @@
 <template>
   <div v-show="showHeader" id="appHeaderState">
-    <Icon v-if="!isMobile" :icon="menuToggleIcon" @click="toggleMenuState" class="menu-toggle-icon" />
+    <app-icon v-if="!isMobile" :icon="menuToggleIcon" @click="toggleMenuState" class="menu-toggle-icon" />
     <AppBreadcrumb v-if="!isMobile" />
     <Tools />
   </div>
@@ -13,11 +13,10 @@ import { useAppStore, MenuState } from '@/store/modules/app'
 import AppBreadcrumb from './Breadcrumb.vue'
 import AppPageTabs from './tabs/index.vue'
 import Tools from './tools/index.vue'
-import { Icon } from '@iconify/vue'
 
 export default defineComponent({
   name: 'AppHeader',
-  components: { AppBreadcrumb, AppPageTabs, Tools, Icon },
+  components: { AppBreadcrumb, AppPageTabs, Tools },
   setup() {
     const appStore = useAppStore()
     const showHeader = computed(() => appStore.getSetting.showHeader)

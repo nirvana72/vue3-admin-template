@@ -1,7 +1,7 @@
 import { DempPage1RspItemModule } from '@/api/demo/index'
-import { IMenuItem } from '@/components/AppPopMenu/types'
+import { IAppPopMenuItem } from '@/components/AppPopMenu/types'
 
-export const popMenuItems: IMenuItem<DempPage1RspItemModule>[] = [
+export const popMenuItems: IAppPopMenuItem<DempPage1RspItemModule>[] = [
   {
     label: '明细',
     click(row: DempPage1RspItemModule): void {

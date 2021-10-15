@@ -3,7 +3,7 @@
     <template #header>
       <div class="flex items-center justify-between">
         <span>{{ title }}</span>
-        <Icon :icon="icon" class="text-2xl" />
+        <app-icon :icon="icon" class="text-2xl" />
       </div>
     </template>
     <div class="text-center py-2">{{ number }}</div>
@@ -11,8 +11,6 @@
 </template>
 
 <script lang="ts" setup>
-import { Icon } from '@iconify/vue'
-
 // eslint-disable-next-line no-undef
 defineProps({
   title: { type: String, default: '' },

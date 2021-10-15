@@ -1,5 +1,5 @@
 <template>
-  <Icon :icon="icon" @click="setDarkMode" />
+  <app-icon :icon="icon" @click="setDarkMode" />
 </template>
 
 <script lang="ts">
@@ -7,11 +7,8 @@ import { computed, defineComponent } from 'vue'
 import { useAppStore } from '@/store/modules/app'
 import { useDark, useToggle } from '@vueuse/core'
 
-import { Icon } from '@iconify/vue'
-
 export default defineComponent({
   name: 'DarkMode',
-  components: { Icon },
   setup() {
     const { getSetting: setting } = useAppStore()
     const isDark = useDark()

@@ -1,10 +1,10 @@
 <template>
   <div id="appHeaderTabsTools">
     <div title="刷新页面" class="app-header-tabs-tools-item">
-      <Icon icon="mdi:refresh" @click="refreshPage" />
+      <app-icon icon="mdi:refresh" @click="refreshPage" />
     </div>
     <div title="全屏内容" class="app-header-tabs-tools-item">
-      <Icon icon="codicon:screen-full" @click="fullContent" />
+      <app-icon icon="codicon:screen-full" @click="fullContent" />
     </div>
   </div>
 </template>
@@ -14,11 +14,9 @@ import { defineComponent } from 'vue'
 import { useAppStore } from '@/store/modules/app'
 import { useTabsStore } from '@/store/modules/tabs'
 import { useRouter } from 'vue-router'
-import { Icon } from '@iconify/vue'
 
 export default defineComponent({
   name: 'TabTools',
-  components: { Icon },
   setup() {
     const appStroe = useAppStore()
     const { getSetting: appSetting } = appStroe
