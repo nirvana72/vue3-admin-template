@@ -1,7 +1,6 @@
 import { Nullable } from 'element-plus/es/utils/types'
 import { defineStore } from 'pinia'
-import { AppSettingsModule } from '@/settings'
-import appSettings from '@/settings'
+import appSettings, { AppSettings } from '@/settings'
 import { useLocalStorage } from '@vueuse/core'
 
 export const enum MenuState {
@@ -11,7 +10,7 @@ export const enum MenuState {
 
 interface AppState {
   menuState: MenuState
-  setting: Nullable<AppSettingsModule>
+  setting: Nullable<AppSettings>
 }
 
 export const useAppStore = defineStore({
@@ -24,9 +23,9 @@ export const useAppStore = defineStore({
     getMenuState(): MenuState {
       return this.menuState
     },
-    getSetting(): AppSettingsModule {
+    getSetting(): AppSettings {
       if (this.setting === null) {
-        const store = useLocalStorage<AppSettingsModule>('app-settings', appSettings)
+        const store = useLocalStorage<AppSettings>('app-settings', appSettings)
         this.setting = store.value
       }
       return this.setting

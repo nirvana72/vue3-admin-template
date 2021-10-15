@@ -5,40 +5,27 @@ export interface AppEnvConfig {
   VITE_API_URL: string
 }
 
-export interface AppSettingsModule {
-  errorLogCatch: boolean
-  showHeader: boolean
-  headerFixed: boolean
-  showSideMenu: boolean
-  showSetting: boolean
-  withPageTab: boolean
-  pageTabCanDrag: boolean
-  hideSingleChildMenu: boolean
-  isDarkMode: boolean
-  isMobile: boolean
-}
-
-const appSettings: AppSettingsModule = {
+export class AppSettings {
   // 开启错误捕获
-  errorLogCatch: true,
+  errorLogCatch = true
   // 显示侧边菜单
-  showSideMenu: true,
+  showSideMenu = true
   // 固定头部
-  headerFixed: true,
+  headerFixed = true
   // 显示header
-  showHeader: true,
+  showHeader = true
   // 显示设置功能 (修改需清空localStorage生效)
-  showSetting: true,
+  showSetting = true
   // 是否启用tab功能
-  withPageTab: true,
+  withPageTab = true
   // tab 是否可以拖动 (修改需刷新生效)
-  pageTabCanDrag: true,
+  pageTabCanDrag = true
   // 唯一子菜单上提为父菜单
-  hideSingleChildMenu: false,
+  hideSingleChildMenu = false
   // 当前是否暗黑模式
-  isDarkMode: false,
+  isDarkMode = false
   // 是否移动端模式
-  isMobile: false,
+  isMobile = false
 }
 
-export default appSettings
+export default new AppSettings()
