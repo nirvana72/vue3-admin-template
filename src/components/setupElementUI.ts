@@ -12,6 +12,7 @@ import {
   ElTag,
   ElForm,
   ElFormItem,
+  ElDialog,
   ElLoading,
 } from 'element-plus'
 
@@ -28,5 +29,6 @@ export function setupElementUI(app: App): void {
   app.use(ElTag)
   app.use(ElForm)
   app.use(ElFormItem)
+  app.use(ElDialog)
   app.use(ElLoading)
 }

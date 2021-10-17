@@ -1,6 +1,6 @@
 import { MockMethod, MockPayload } from '../../index'
 import { Result } from '@/utils/http/types'
-import { ApiGetListRspModule } from '@/types/index'
+import { ApiGetListRspModule } from '@/api/types'
 import { GetListReqModule, GetListRspItemModule } from '@/api/sys/user'
 import { Random } from 'mockjs'
 import { getUrlParams } from '@/utils/tools'
@@ -37,7 +37,7 @@ const modules: MockMethod[] = [
           writeTime: Random.datetime('yyyy-mm-dd'),
           avatarUrl: `/avatar/${avatarId}.png`,
           thisTime: Random.datetime('yyyy-mm-dd'),
-          thisArea: Random.region.name,
+          thisArea: Random.city(),
           online: Random.integer(0, 1),
         })
       }

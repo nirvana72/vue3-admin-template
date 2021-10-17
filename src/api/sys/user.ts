@@ -1,5 +1,5 @@
 import { http } from '@/utils/http'
-import { AppBoolen, AppUserState, ApiGetListRspModule } from '@/types/index'
+import { AppBoolen, AppUserState, ApiGetListRspModule } from '@/api/types'
 
 export interface GetListReqModule {
   page?: number

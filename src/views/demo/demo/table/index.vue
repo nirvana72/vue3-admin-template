@@ -23,30 +23,7 @@
     </template>
     <el-card shadow="none" class="el-card--fix">
       <el-table :data="datasource.list">
-        <el-table-column width="100" align="center">
-          <template #default="scope">
-            <img :src="scope.row.avatar" class="rounded-1/2 w-15 inline" />
-          </template>
-        </el-table-column>
-        <el-table-column label="user" min-width="100">
-          <template #default="scope">
-            <p>{{ scope.row.id }} / {{ scope.row.realName }}</p>
-            <p>{{ scope.row.account }}</p>
-          </template>
-        </el-table-column>
-        <el-table-column label="角色" prop="roleName" min-width="100" />
-        <el-table-column>
-          <template #default="scope">
-            <el-tag v-if="scope.row.online" type="success">在线</el-tag>
-          </template>
-        </el-table-column>
-        <el-table-column label="注册时间" prop="writeTime" min-width="100" />
-        <el-table-column label="部门" prop="orgFull" min-width="100" />
-        <el-table-column width="80" align="center">
-          <template #default="scope">
-            <el-button type="primary" icon="el-icon-edit" circle @click="onRowCommand(scope.row, $event)" />
-          </template>
-        </el-table-column>
+        <el-table-column label="角色" prop="roleName" />
       </el-table>
       <div class="mt-5 text-center">
         <el-pagination

@@ -1,10 +1,3 @@
-export interface AppEnvConfig {
-  // 网站标题
-  VITE_APP_TITLE: string
-  // 后台接口API
-  VITE_API_URL: string
-}
-
 export class AppSettings {
   // 开启错误捕获
   errorLogCatch = true

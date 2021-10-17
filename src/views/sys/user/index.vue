@@ -1,35 +1,72 @@
 <template>
   <app-page-warpper>
+    <template #header>
+      <div class="p-5 flex justify-center">
+        <app-title-input title="账号" class="w-60 pr-2">
+          <template #default>
+            <el-input v-model="query.account"></el-input>
+          </template>
+        </app-title-input>
+        <app-title-input title="角色" class="w-60 pr-2">
+          <template #default>
+            <el-select v-model="query.roleId">
+              <el-option label="" value="" />
+              <el-option label="管理员" value="admin" />
+              <el-option label="业务员" value="customer" />
+              <el-option label="代理商" value="agent" />
+            </el-select>
+          </template>
+        </app-title-input>
+        <div class="w-60 pr-2">
+          <el-button type="primary" @click="getList(1)">查询</el-button>
+          <el-button type="success" @click="onCreateCommand">+ 新建</el-button>
+        </div>
+      </div>
+    </template>
+
     <el-card shadow="none" class="el-card--fix">
-      <el-table :data="datasource.list">
-        <el-table-column>
+      <el-table :data="datasource.list" @sort-change="onTableSort">
+        <el-table-column width="100" align="center">
           <template #default="scope">
             <img :src="scope.row.avatarUrl" class="rounded-1/2 w-15" />
           </template>
         </el-table-column>
-        <el-table-column label="账号">
+        <el-table-column label="账号" prop="userId" sortable>
           <template #default="scope">
-            {{ scope.row.userId }} / {{ scope.row.realName }}
-            <br />
+            {{ scope.row.userId }} / {{ scope.row.realName }}<br />
             {{ scope.row.account }}
           </template>
         </el-table-column>
         <el-table-column>
           <template #default="scope">
-            <el-tag v-if="scope.row.online === 1" type="success">在线</el-tag>&nbsp;
-            <el-tag v-if="scope.row.state === 2" type="danger">禁用</el-tag>&nbsp;
+            <template v-if="scope.row.online === 1">&nbsp;<el-tag type="success">在线</el-tag></template>
+            <template v-if="scope.row.state === 2">&nbsp;<el-tag type="danger">禁用</el-tag></template>
           </template>
         </el-table-column>
-        <el-table-column label="角色">
+        <el-table-column label="角色" prop="roleId" sortable>
           <template #default="scope">
             {{ scope.row.roleName }}
-            <template v-if="scope.row.roleId === 'company'">
-              <br />
-              {{ scope.row.companyName }}
-            </template>
+            <template v-if="scope.row.roleId === 'company'"><br />{{ scope.row.companyName }}</template>
+          </template>
+        </el-table-column>
+        <el-table-column label="创建时间" prop="writeTime" sortable>
+          <template #default="scope">
+            {{ parseTime(scope.row.writeTime, 'YYYY-MM-DD') }}
+          </template>
+        </el-table-column>
+        <el-table-column label="最近登录" prop="lastTime" sortable>
+          <template #default="scope">
+            {{ scope.row.thisArea }}<br />
+            {{ scope.row.thisTime }}
+          </template>
+        </el-table-column>
+        <el-table-column width="80" align="center">
+          <template #default="scope">
+            <el-button type="primary" icon="el-icon-edit" circle @click="onRowCommand(scope.row, $event)" />
           </template>
         </el-table-column>
       </el-table>
+
       <div class="mt-5 text-center">
         <el-pagination
           background
@@ -39,20 +76,39 @@
         />
       </div>
     </el-card>
+
+    <template v-if="popMenuNeed">
+      <AppPopMenu ref="popMenuRef" :items="popMenuItems" />
+    </template>
+
+    <template v-if="itemFormNeed">
+      <ItemForm ref="itemFormRef" />
+    </template>
   </app-page-warpper>
 </template>
 
 <script lang="ts">
-import { defineComponent, onMounted, reactive } from 'vue'
-import { getUserListApi, GetListReqModule, GetListRspItemModule } from '@/api/sys/user'
-import { ApiGetListRspModule, AppBoolen } from '@/types/index'
+import { defineAsyncComponent, defineComponent, onMounted, reactive, ref } from 'vue'
+import { getUserListApi, GetListReqModule, GetListRspItemModule as RowItem } from '@/api/sys/user'
+import { ApiGetListRspModule, AppBoolen } from '@/api/types'
 import { ElLoading } from 'element-plus'
+import { parseTime, getBetterTableRowsNumber } from '@/utils/tools'
+import { IAppPopMenu } from '@/components/AppPopMenu/index.vue'
+import { popMenuItems } from './popMenu'
+import { IItemForm } from './form.vue'
+
+// TODO from表单
 
 export default defineComponent({
   name: 'SysUserIndex',
+  components: {
+    ItemForm: defineAsyncComponent(() => import('./form.vue')),
+    AppPopMenu: defineAsyncComponent(() => import('@/components/AppPopMenu/index.vue')),
+  },
   setup() {
-    const query = reactive<GetListReqModule>({ withOnline: AppBoolen.TRUE })
-    const datasource = reactive<ApiGetListRspModule<GetListRspItemModule>>({
+    const betterTableRowsNumber = getBetterTableRowsNumber({ rowHeight: 70, minusHeight: 70 })
+    const query = reactive<GetListReqModule>({ withOnline: AppBoolen.TRUE, limit: betterTableRowsNumber })
+    const datasource = reactive<ApiGetListRspModule<RowItem>>({
       list: [],
       total: 0,
     })
@@ -70,13 +126,50 @@ export default defineComponent({
         })
     }
 
-    onMounted(() => {
-      getList()
-    })
+    function onTableSort(params: { prop: string; order: string }) {
+      const { order, prop } = params
+      const sort = { ascending: 'ASC', descending: 'DESC' }[order]
+      query.orderBy = sort ? `${prop}.${sort}` : ''
+      getList(1)
+    }
+
+    const popMenuRef = ref<IAppPopMenu>()
+    const popMenuNeed = ref(false)
+    function onRowCommand(row: RowItem, e: MouseEvent) {
+      if (!popMenuNeed.value) {
+        popMenuNeed.value = true
+        setTimeout(() => popMenuRef.value?.show(e, row), 200)
+      } else {
+        popMenuRef.value?.show(e, row)
+      }
+    }
+
+    const itemFormRef = ref<IItemForm>()
+    const itemFormNeed = ref(false)
+    function onCreateCommand() {
+      if (!itemFormNeed.value) {
+        itemFormNeed.value = true
+        setTimeout(() => itemFormRef.value?.show(), 200)
+      } else {
+        itemFormRef.value?.show()
+      }
+    }
+
+    onMounted(() => getList())
 
     return {
+      query,
       getList,
       datasource,
+      parseTime,
+      onTableSort,
+      popMenuRef,
+      popMenuNeed,
+      popMenuItems,
+      onRowCommand,
+      onCreateCommand,
+      itemFormRef,
+      itemFormNeed,
     }
   },
 })

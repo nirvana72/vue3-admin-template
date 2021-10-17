@@ -37,6 +37,12 @@ html.dark {
     --appHeaderTabsBorderColor: var(--appColor-8);
   }
 
+  .app-title-input {
+    .title {
+      background-color: var(--appPanelBgColor);
+    }
+  }
+
   // ------------------------------------------------
 
   --el-text-color-primary: var(--appTextColor);
@@ -94,10 +100,11 @@ html.dark {
     --el-input-placeholder-color: var(--appColor-5);
   }
   .el-input__inner {
-    background-color: var(--appColor-9);
+    background-color: var(--appPanelBgColor);
   }
   .el-input-group__prepend {
-    background-color: var(--appColor-9);
-    border-color: unset;
+    background-color: #000000;
+    border: var(--el-input-border, var(--el-border-base));
+    border-right: unset;
   }
 }

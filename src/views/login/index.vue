@@ -1,22 +1,12 @@
 <template>
   <div class="min-h-screen bg-gray-100 dark:bg-gray-800 py-6 flex flex-col justify-center sm:py-12">
-    <div
-      class="
-        absolute
-        top-5
-        right-5
-        w-10
-        h-10
-        flex
-        items-center
-        justify-center
-        bg-gray-200
-        rounded
-        cursor-pointer
-        dark:bg-gray-900
-      "
-    >
-      <DarkMode class="text-2xl" />
+    <div class="tools">
+      <div class="icon">
+        <DarkMode class="text-2xl" />
+      </div>
+      <div class="icon ml-2">
+        <GitHub class="text-2xl" />
+      </div>
     </div>
     <div class="relative py-3 sm:max-w-xl sm:mx-auto">
       <div
@@ -68,14 +58,15 @@
 import { useSessionStore, UserSession } from '@/store/modules/session'
 import { useRouter } from 'vue-router'
 import { ElMessage } from 'element-plus'
-import DarkMode from '@/layout/header/tools/DarkMode.vue'
+import DarkMode from '@/layout/header/tools/Darkmode.vue'
+import GitHub from '@/layout/header/tools/GitHub.vue'
 import { defineComponent, reactive, ref, toRaw } from 'vue'
 import { useAppEnv } from '@/utils/useAppEnv'
 import { http } from '@/utils/http'
 
 export default defineComponent({
   name: 'AppLogin',
-  components: { DarkMode },
+  components: { DarkMode, GitHub },
   setup() {
     const sessionStore = useSessionStore()
     const router = useRouter()
@@ -111,3 +102,16 @@ export default defineComponent({
   },
 })
 </script>
+
+<style lang="scss" scoped>
+.tools {
+  position: absolute;
+  top: 10px;
+  right: 10px;
+  display: flex;
+  .icon {
+    @apply w-10 h-10 flex items-center justify-center bg-gray-200 rounded cursor-pointer;
+    @apply dark:bg-gray-900;
+  }
+}
+</style>

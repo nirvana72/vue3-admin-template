@@ -23,17 +23,18 @@
       <UserInfo />
     </li>
     <li title="github">
-      <app-icon icon="akar-icons:github-fill" @click="showGitHub" />
+      <GitHub />
     </li>
   </ul>
-  <AppSetting v-if="appSettingAsync" ref="appSettingRef" />
+  <AppSetting v-if="appSettingVisible" ref="appSettingRef" />
 </template>
 
 <script lang="ts">
 import { computed, defineAsyncComponent, defineComponent, ref } from 'vue'
-import DarkMode from './DarkMode.vue'
+import DarkMode from './Darkmode.vue'
 import FullScreen from './FullScreen.vue'
 import UserInfo from './UserInfo.vue'
+import GitHub from './GitHub.vue'
 import { IAppSetting } from '@/layout/setting/index.vue'
 import { ElBadge, ElMessageBox } from 'element-plus'
 import { useAppStore } from '@/store/modules/app'
@@ -46,6 +47,7 @@ export default defineComponent({
     DarkMode,
     UserInfo,
     FullScreen,
+    GitHub,
     AppSetting: defineAsyncComponent(() => import('@/layout/setting/index.vue')),
     ElBadge,
   },
@@ -61,29 +63,24 @@ export default defineComponent({
       ElMessageBox.alert('websocket 未连接', { type: 'error' })
     }
 
-    function showGitHub() {
-      window.open('https://github.com/nirvana72/vue3-admin-template.git')
-    }
-
     function showErrorInfo() {
       router.push('/error-log')
     }
 
-    const appSettingAsync = ref(false)
+    const appSettingVisible = ref(false)
     const appSettingRef = ref<IAppSetting>()
     function showAppSetting() {
-      appSettingAsync.value = true
+      appSettingVisible.value = true
       appSettingRef.value?.show()
     }
 
     return {
       isMobile,
       errorCount,
-      showGitHub,
       notificationClick,
       showErrorInfo,
       appSettingRef,
-      appSettingAsync,
+      appSettingVisible,
       showAppSetting,
     }
   },

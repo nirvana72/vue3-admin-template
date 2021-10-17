@@ -21,7 +21,7 @@ import AppSider from './sider/index.vue'
 import AppHeader from './header/index.vue'
 import AppContent from './content/index.vue'
 import { useBreakpoints, breakpointsTailwind } from '@vueuse/core'
-import variables from '@/style/variables.module.scss'
+import { getAppHeaderHeight } from '@/layout/helper'
 
 export default defineComponent({
   name: 'Layout',
@@ -33,13 +33,10 @@ export default defineComponent({
     const breakpoints = useBreakpoints(breakpointsTailwind)
     const isSmallerLg = breakpoints.smaller('lg')
     const menuState = computed(() => appStore.getMenuState)
-    const isMobile = computed(() => appStore.getSetting.isMobile)
-    const withPageTab = computed(() => appStore.getSetting.withPageTab)
 
-    const { appHeaderStateHeight, appHeaderTabsHeight } = variables
     const appHeaderHeight = computed(() => {
-      if (withPageTab.value) return appHeaderStateHeight + appHeaderTabsHeight
-      return appHeaderStateHeight
+      const height = getAppHeaderHeight()
+      return `${height.value}px`
     })
 
     watch(
@@ -56,7 +53,6 @@ export default defineComponent({
       isHeaderFixed,
       menuState,
       appHeaderHeight,
-      isMobile,
     }
   },
 })

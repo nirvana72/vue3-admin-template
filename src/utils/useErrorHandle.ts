@@ -11,9 +11,6 @@ export function setupErrorHandle(app: App): void {
 
     // windows javascript 错误
     window.onerror = scriptErrorHandler
-
-    // 加载资源不存在错误
-    registerResourceErrorHandler()
   }
 }
 
@@ -41,6 +38,7 @@ function scriptErrorHandler(
   colno?: number,
   error?: Error,
 ): boolean {
+  if (!error) return true
   if (event === 'Script error.' && !source) {
     return false
   }
@@ -63,34 +61,6 @@ function scriptErrorHandler(
     ...(errorInfo as Pick<ErrorModule, 'message' | 'stack'>),
   })
   return true
-}
-
-/**
- * Configure monitoring resource loading error handling function
- */
-function registerResourceErrorHandler() {
-  // Monitoring resource loading error(img,script,css,and jsonp)
-  window.addEventListener(
-    'error',
-    function (e: Event) {
-      const target = e.target ? e.target : (e.srcElement as any)
-      const errorLogStore = useErrorLogStore()
-      errorLogStore.addError({
-        type: ErrorTypeEnum.RESOURCE,
-        name: 'Resource Error!',
-        file: (e.target || ({} as any)).currentSrc,
-        detail: JSON.stringify({
-          tagName: target.localName,
-          html: target.outerHTML,
-          type: e.type,
-        }),
-        url: window.location.href,
-        stack: 'resource is not found',
-        message: (e.target || ({} as any)).localName + ' is load error',
-      })
-    },
-    true,
-  )
 }
 
 /**

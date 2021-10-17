@@ -28,6 +28,9 @@
           <div class="my-2">
             <el-tag type="danger">url: {{ item.url }}</el-tag>
           </div>
+          <div class="my-2">
+            <el-tag type="danger">detail: {{ item.detail }}</el-tag>
+          </div>
         </div>
         <div v-html="item.stack" />
       </div>
