@@ -26,11 +26,11 @@
       <GitHub />
     </li>
   </ul>
-  <AppSetting v-if="appSettingVisible" ref="appSettingRef" />
+  <AppSetting v-if="asyncComponentHandler.isLoad('appSettingRef')" ref="appSettingRef" />
 </template>
 
 <script lang="ts">
-import { computed, defineAsyncComponent, defineComponent, ref } from 'vue'
+import { computed, defineAsyncComponent, defineComponent } from 'vue'
 import DarkMode from './Darkmode.vue'
 import FullScreen from './FullScreen.vue'
 import UserInfo from './UserInfo.vue'
@@ -40,6 +40,7 @@ import { ElBadge, ElMessageBox } from 'element-plus'
 import { useAppStore } from '@/store/modules/app'
 import { useErrorLogStore } from '@/store/modules/errorLog'
 import { useRouter } from 'vue-router'
+import AsyncComponentHandler from '@/components/AsyncComponentHandler'
 
 export default defineComponent({
   name: 'AppHeaderTools',
@@ -55,8 +56,8 @@ export default defineComponent({
     const appStore = useAppStore()
     const errorLogStore = useErrorLogStore()
 
-    const errorCount = computed(() => errorLogStore.getErrorCount)
-    const isMobile = computed(() => appStore.getSetting.isMobile)
+    const errorCount = computed<number>(() => errorLogStore.getErrorCount)
+    const isMobile = computed<boolean>(() => appStore.getSetting.isMobile)
     const router = useRouter()
 
     function notificationClick() {
@@ -67,11 +68,9 @@ export default defineComponent({
       router.push('/error-log')
     }
 
-    const appSettingVisible = ref(false)
-    const appSettingRef = ref<IAppSetting>()
+    const asyncComponentHandler = new AsyncComponentHandler()
     function showAppSetting() {
-      appSettingVisible.value = true
-      appSettingRef.value?.show()
+      asyncComponentHandler.load<IAppSetting>('appSettingRef').then((comp) => comp.show())
     }
 
     return {
@@ -79,9 +78,8 @@ export default defineComponent({
       errorCount,
       notificationClick,
       showErrorInfo,
-      appSettingRef,
-      appSettingVisible,
       showAppSetting,
+      asyncComponentHandler,
     }
   },
 })

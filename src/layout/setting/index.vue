@@ -40,11 +40,12 @@ export interface IAppSetting {
 
 export default defineComponent({
   name: 'AppSetting',
+  emits: ['mounted'],
   components: { ElDrawer, ElSwitch },
   setup() {
     const { getSetting: setting } = useAppStore()
     const tabsStroe = useTabsStore()
-    const visible = ref<boolean>(true)
+    const visible = ref<boolean>(false)
 
     function show() {
       visible.value = true
