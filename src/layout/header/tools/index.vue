@@ -26,7 +26,7 @@
       <GitHub />
     </li>
   </ul>
-  <AppSetting v-if="asyncComponentHandler.isLoad('appSettingRef')" ref="appSettingRef" />
+  <AppSetting v-if="asyncComponent.isLoad('appSettingRef')" ref="appSettingRef" />
 </template>
 
 <script lang="ts">
@@ -40,7 +40,7 @@ import { ElBadge, ElMessageBox } from 'element-plus'
 import { useAppStore } from '@/store/modules/app'
 import { useErrorLogStore } from '@/store/modules/errorLog'
 import { useRouter } from 'vue-router'
-import AsyncComponentHandler from '@/components/AsyncComponentHandler'
+import { useAsyncComponent } from '@/utils/useAsyncComponent'
 
 export default defineComponent({
   name: 'AppHeaderTools',
@@ -68,9 +68,9 @@ export default defineComponent({
       router.push('/error-log')
     }
 
-    const asyncComponentHandler = new AsyncComponentHandler()
+    const asyncComponent = useAsyncComponent()
     function showAppSetting() {
-      asyncComponentHandler.load<IAppSetting>('appSettingRef').then((comp) => comp.show())
+      asyncComponent.load<IAppSetting>('appSettingRef').then((comp) => comp.show())
     }
 
     return {
@@ -79,7 +79,7 @@ export default defineComponent({
       notificationClick,
       showErrorInfo,
       showAppSetting,
-      asyncComponentHandler,
+      asyncComponent,
     }
   },
 })

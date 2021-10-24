@@ -77,18 +77,14 @@
       </div>
     </el-card>
 
-    <template v-if="popMenuNeed">
-      <AppPopMenu ref="popMenuRef" :items="popMenuItems" />
-    </template>
+    <AppPopMenu v-if="asyncComponent.isLoad('popMenuRef')" ref="popMenuRef" :items="popMenuItems" />
 
-    <template v-if="itemFormNeed">
-      <ItemForm ref="itemFormRef" />
-    </template>
+    <ItemForm v-if="asyncComponent.isLoad('itemFormRef')" ref="itemFormRef" />
   </app-page-warpper>
 </template>
 
 <script lang="ts">
-import { defineAsyncComponent, defineComponent, onMounted, reactive, ref } from 'vue'
+import { defineAsyncComponent, defineComponent, onMounted, reactive } from 'vue'
 import { getUserListApi, GetListReqModule, GetListRspItemModule as RowItem } from '@/api/sys/user'
 import { ApiGetListRspModule, AppBoolen } from '@/api/types'
 import { ElLoading } from 'element-plus'
@@ -96,6 +92,7 @@ import { parseTime, getBetterTableRowsNumber } from '@/utils/tools'
 import { IAppPopMenu } from '@/components/AppPopMenu/index.vue'
 import { popMenuItems } from './popMenu'
 import { IItemForm } from './form.vue'
+import { useAsyncComponent } from '@/utils/useAsyncComponent'
 
 // TODO from表单
 
@@ -121,9 +118,7 @@ export default defineComponent({
           datasource.list = data.list
           datasource.total = data.total
         })
-        .finally(() => {
-          loading.close()
-        })
+        .finally(loading.close)
     }
 
     function onTableSort(params: { prop: string; order: string }) {
@@ -133,43 +128,28 @@ export default defineComponent({
       getList(1)
     }
 
-    const popMenuRef = ref<IAppPopMenu>()
-    const popMenuNeed = ref(false)
+    const asyncComponent = useAsyncComponent()
+
     function onRowCommand(row: RowItem, e: MouseEvent) {
-      if (!popMenuNeed.value) {
-        popMenuNeed.value = true
-        setTimeout(() => popMenuRef.value?.show(e, row), 200)
-      } else {
-        popMenuRef.value?.show(e, row)
-      }
+      asyncComponent.load<IAppPopMenu>('popMenuRef').then((comp) => comp.show(e, row))
     }
 
-    const itemFormRef = ref<IItemForm>()
-    const itemFormNeed = ref(false)
     function onCreateCommand() {
-      if (!itemFormNeed.value) {
-        itemFormNeed.value = true
-        setTimeout(() => itemFormRef.value?.show(), 200)
-      } else {
-        itemFormRef.value?.show()
-      }
+      asyncComponent.load<IItemForm>('itemFormRef').then((comp) => comp.show())
     }
 
-    onMounted(() => getList())
+    onMounted(getList)
 
     return {
       query,
-      getList,
       datasource,
+      getList,
       parseTime,
       onTableSort,
-      popMenuRef,
-      popMenuNeed,
       popMenuItems,
       onRowCommand,
       onCreateCommand,
-      itemFormRef,
-      itemFormNeed,
+      asyncComponent,
     }
   },
 })

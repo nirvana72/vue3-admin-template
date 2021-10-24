@@ -2,7 +2,7 @@ import { ComponentPublicInstance, getCurrentInstance, ref } from 'vue'
 
 type Proxy = ComponentPublicInstance | null | undefined
 
-export default class AsyncComponentHandler {
+class AsyncComponent {
   private components = ref(new Set<string>())
 
   private proxy: Proxy
@@ -40,4 +40,8 @@ export default class AsyncComponentHandler {
       }
     })
   }
+}
+
+export function useAsyncComponent(): AsyncComponent {
+  return new AsyncComponent()
 }
