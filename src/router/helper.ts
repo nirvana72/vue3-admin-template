@@ -1,11 +1,11 @@
-import type { AppRouteModule, AppMenu } from '@/router/types'
+import type { IAppRoute, IAppMenu } from '@/router/types'
 import type { Router, RouteRecordRaw, RouteRecordNormalized } from 'vue-router'
 import { createRouter, createWebHashHistory } from 'vue-router'
 import { sortBy } from 'lodash'
 
 // 根据权限列表，过滤出可用的路由
-export function filterRoutesWithAuths(list: AppRouteModule[], auths: string[]): AppRouteModule[] {
-  const ret: AppRouteModule[] = []
+export function filterRoutesWithAuths(list: IAppRoute[], auths: string[]): IAppRoute[] {
+  const ret: IAppRoute[] = []
   list.forEach((r) => {
     if (r.children && r.children.length > 0) {
       r.children = filterRoutesWithAuths(r.children, auths)
@@ -19,12 +19,8 @@ export function filterRoutesWithAuths(list: AppRouteModule[], auths: string[]): 
 }
 
 // 将路由对象转成菜单对像
-export function transformRouteToMenu(
-  hideSingleChildMenu: boolean,
-  routes: AppRouteModule[],
-  parentPath = '',
-): AppMenu[] {
-  let menuList: AppMenu[] = []
+export function transformRouteToMenu(hideSingleChildMenu: boolean, routes: IAppRoute[], parentPath = ''): IAppMenu[] {
+  let menuList: IAppMenu[] = []
 
   routes.forEach((route) => {
     const {
@@ -35,7 +31,7 @@ export function transformRouteToMenu(
 
     if (hiddenMenu !== true) {
       const slash = path.startsWith('/') ? '' : '/'
-      const menu: AppMenu = {
+      const menu: IAppMenu = {
         label,
         path: `${parentPath}${slash}${path}`,
         icon,
@@ -65,7 +61,7 @@ export function transformRouteToMenu(
 }
 
 // 将2级以上路由转成2级路由
-export function flatMultiLevelRoutes(routeModules: AppRouteModule[]): AppRouteModule[] {
+export function flatMultiLevelRoutes(routeModules: IAppRoute[]): IAppRoute[] {
   for (let index = 0; index < routeModules.length; index++) {
     const routeModule = routeModules[index]
     if (isMultipleRoute(routeModule)) {
@@ -76,7 +72,7 @@ export function flatMultiLevelRoutes(routeModules: AppRouteModule[]): AppRouteMo
 }
 
 // 判断是否为2级以上路由
-function isMultipleRoute(routeModule: AppRouteModule): boolean {
+function isMultipleRoute(routeModule: IAppRoute): boolean {
   if (!routeModule || !Reflect.has(routeModule, 'children') || !routeModule.children?.length) {
     return false
   }
@@ -95,7 +91,7 @@ function isMultipleRoute(routeModule: AppRouteModule): boolean {
 }
 
 // 转换路由层级
-function flatRouteLevel(routeModule: AppRouteModule): void {
+function flatRouteLevel(routeModule: IAppRoute): void {
   const router: Router = createRouter({
     routes: [routeModule as unknown as RouteRecordRaw],
     history: createWebHashHistory(),
@@ -110,7 +106,7 @@ function flatRouteLevel(routeModule: AppRouteModule): void {
   })
 }
 
-function addToChildren(routes: RouteRecordNormalized[], children: AppRouteModule[], routeModule: AppRouteModule) {
+function addToChildren(routes: RouteRecordNormalized[], children: IAppRoute[], routeModule: IAppRoute) {
   for (let index = 0; index < children.length; index++) {
     const child = children[index]
     const route = routes.find((item) => item.name === child.name)
@@ -119,7 +115,7 @@ function addToChildren(routes: RouteRecordNormalized[], children: AppRouteModule
     }
     routeModule.children = routeModule.children || []
     if (!routeModule.children.find((item) => item.name === route.name)) {
-      routeModule.children?.push(route as unknown as AppRouteModule)
+      routeModule.children?.push(route as unknown as IAppRoute)
     }
     if (child.children?.length) {
       // 递归处理所有子路由

@@ -34,15 +34,16 @@
         <span>/<br />@</span>
       </li>
     </ul>
-    <ChangeAvatar v-if="changeAvatarRefAsync" ref="changeAvatarRef" />
+    <ChangeAvatar v-if="componentHandler.async('changeAvatarRef')" ref="changeAvatarRef" />
   </div>
 </template>
 
 <script lang="ts">
-import { computed, defineAsyncComponent, defineComponent, ref } from 'vue'
+import { computed, defineAsyncComponent, defineComponent } from 'vue'
 import { useRouter } from 'vue-router'
 import { useSessionStore } from '@/store/modules/session'
 import { IChangeAvatar } from './ChangeAvatar.vue'
+import { useComponentHandler } from '@/utils/componentHandler'
 
 export default defineComponent({
   name: 'ProfileUserInfo',
@@ -52,23 +53,21 @@ export default defineComponent({
   setup() {
     const router = useRouter()
     const sessionStore = useSessionStore()
+    const avatar = computed(() => sessionStore.getSession.avatar + '?' + sessionStore.getTime)
 
     function changePassword() {
       router.push({ name: 'ProfileChangePassword' })
     }
 
-    const avatar = computed(() => sessionStore.getSession.avatar + '?' + sessionStore.getTime)
-    const changeAvatarRef = ref<IChangeAvatar>()
-    const changeAvatarRefAsync = ref(false)
+    const componentHandler = useComponentHandler()
+
     function changeAvatar() {
-      changeAvatarRefAsync.value = true
-      changeAvatarRef.value?.show()
+      componentHandler.getAsync<IChangeAvatar>('changeAvatarRef').then((comp) => comp.show())
     }
 
     return {
       avatar,
-      changeAvatarRef,
-      changeAvatarRefAsync,
+      componentHandler,
       changePassword,
       changeAvatar,
     }

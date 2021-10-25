@@ -1,6 +1,6 @@
 import { App, defineComponent } from 'vue'
 import { createRouter, createWebHashHistory, RouteRecordRaw } from 'vue-router'
-import type { AppRouteModule } from '@/router/types'
+import type { IAppRoute } from '@/router/types'
 import basicRoutes from './basic'
 import LAYOUT from '@/layout/index.vue'
 import { cloneDeep, last as arrayLast } from 'lodash'
@@ -26,9 +26,9 @@ const router = createRouter({
   },
 })
 
-export function getAsyncRoutes(): AppRouteModule[] {
+export function getAsyncRoutes(): IAppRoute[] {
   const modules = import.meta.globEager('./modules/**/*.ts')
-  const asyncRoutes: AppRouteModule[] = []
+  const asyncRoutes: IAppRoute[] = []
 
   Object.keys(modules).forEach((key) => {
     if (arrayLast(key.split('/'))?.substr(0, 1) !== '_') {

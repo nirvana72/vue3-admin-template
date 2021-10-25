@@ -1,6 +1,6 @@
 import type { Router, RouteRecordRaw } from 'vue-router'
 import { usePermissionStore } from '@/store/modules/permission'
-import { AppRouteModule } from '../types'
+import { IAppRoute } from '../types'
 import { useSessionStore } from '@/store/modules/session'
 
 // 权限守卫
@@ -24,7 +24,7 @@ export function setPermissionGuard(router: Router): void {
     if (!permissionStore.getIsInitRoute) {
       const routers = await permissionStore.buildAsyncRouter()
 
-      routers.forEach((route: AppRouteModule) => {
+      routers.forEach((route: IAppRoute) => {
         router.addRoute(route as unknown as RouteRecordRaw)
       })
 

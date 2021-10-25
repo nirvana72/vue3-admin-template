@@ -1,16 +1,16 @@
 import { defineStore } from 'pinia'
 
-interface ErrorState {
-  list: ErrorModule[]
+interface IErrorState {
+  list: IAppError[]
 }
 
 export const useErrorLogStore = defineStore({
   id: 'store-error',
-  state: (): ErrorState => ({
+  state: (): IErrorState => ({
     list: [],
   }),
   getters: {
-    getErrorList(): ErrorModule[] {
+    getErrorList(): IAppError[] {
       return this.list
     },
     getErrorCount(): number {
@@ -18,12 +18,12 @@ export const useErrorLogStore = defineStore({
     },
   },
   actions: {
-    addError(err: ErrorModule) {
+    addError(err: IAppError) {
       this.list.push(err)
       // console.error(err)
     },
     addAjaxError(error: any) {
-      const errInfo: Partial<ErrorModule> = {
+      const errInfo: Partial<IAppError> = {
         message: error.message,
         type: ErrorTypeEnum.AJAX,
       }
@@ -34,7 +34,7 @@ export const useErrorLogStore = defineStore({
         errInfo.file = '-'
         errInfo.stack = JSON.stringify(data)
         errInfo.detail = JSON.stringify({ params, method, headers })
-        this.addError(errInfo as ErrorModule)
+        this.addError(errInfo as IAppError)
       }
     },
     clean() {
@@ -44,7 +44,7 @@ export const useErrorLogStore = defineStore({
 })
 
 // Error-log information
-export interface ErrorModule {
+export interface IAppError {
   // Type of error
   type: ErrorTypeEnum
   // Error file

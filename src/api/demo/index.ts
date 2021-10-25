@@ -1,6 +1,6 @@
 import { http } from '@/utils/http/index'
 
-export interface DemoPage1ReqModule {
+export interface IDemoPage1Req {
   page?: number
   limit?: number
   account?: string
@@ -8,7 +8,7 @@ export interface DemoPage1ReqModule {
   roleId?: string
 }
 
-export interface DempPage1RspItemModule {
+export interface IDempPage1RspItem {
   id: number
   account: string
   avatar: string
@@ -20,17 +20,17 @@ export interface DempPage1RspItemModule {
   online: boolean
 }
 
-export interface DemoPage1RspModule {
-  list: DempPage1RspItemModule[]
+export interface IDemoPage1Rsp {
+  list: IDempPage1RspItem[]
   total: number
 }
 
 /**
  * @description: Page1 请求数据Api
  */
-export function getDemoPageData(params: DemoPage1ReqModule): Promise<DemoPage1RspModule> {
+export function getDemoPageData(params: IDemoPage1Req): Promise<IDemoPage1Rsp> {
   return new Promise((resolve) => {
-    http.get<DemoPage1RspModule>('/demo/page1', { params }).then((data) => {
+    http.get<IDemoPage1Rsp>('/demo/page1', { params }).then((data) => {
       resolve(data)
     })
   })

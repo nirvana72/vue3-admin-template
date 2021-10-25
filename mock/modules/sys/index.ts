@@ -1,4 +1,4 @@
-import { MockMethod } from '../../index'
+import { IMockApi } from '../../index'
 import { Random } from 'mockjs'
 
 interface IChartData {
@@ -7,7 +7,7 @@ interface IChartData {
   videoAds: number[]
 }
 
-const modules: MockMethod[] = [
+const modules: IMockApi[] = [
   {
     api: /\/dashboard$/,
     method: 'get',

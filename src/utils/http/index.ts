@@ -1,5 +1,5 @@
 import axios, { AxiosRequestConfig, AxiosResponse } from 'axios'
-import { RequestOption, Result, AxiosCreateSettings, ApiResultEnum } from './types'
+import { IHttpRequestOption, IApiResult, IAxiosCreateSettings, EApiResult } from './types'
 import { useSessionStore } from '@/store/modules/session'
 import { MyAxios } from './axios'
 import { useAppEnv } from '@/utils/useAppEnv'
@@ -12,7 +12,7 @@ const JWT_KEY = 'Authorization'
 
 function createAxios() {
   const appEnv = useAppEnv()
-  const settings: AxiosCreateSettings = {
+  const settings: IAxiosCreateSettings = {
     // 超时时间
     timeout: 10 * 1000,
     // 返回格式
@@ -41,7 +41,7 @@ function createAxios() {
 /**
  * @description: 请求拦截器处理
  */
-function requestInterceptor(config: AxiosRequestConfig, option: RequestOption): AxiosRequestConfig {
+function requestInterceptor(config: AxiosRequestConfig, option: IHttpRequestOption): AxiosRequestConfig {
   // 请求完整url
   if (config.url?.startsWith('http')) {
     return config
@@ -68,7 +68,7 @@ function requestInterceptor(config: AxiosRequestConfig, option: RequestOption): 
 /**
  * @description: 解析返回内容
  */
-async function responseInterceptor(res: AxiosResponse<Result>, option: RequestOption) {
+async function responseInterceptor(res: AxiosResponse<IApiResult>, option: IHttpRequestOption) {
   // 是否返回原生响应头 比如：需要获取响应头时使用该属性
   if (option.isReturnNativeResponse) {
     return res
@@ -80,14 +80,14 @@ async function responseInterceptor(res: AxiosResponse<Result>, option: RequestOp
   }
 
   // 在 types.ts内修改为项目自己的接口返回格式
-  const { ret = ApiResultEnum.UNKNOW, data = undefined } = res.data
+  const { ret = EApiResult.UNKNOW, data = undefined } = res.data
   let msg = res.data.msg || '[AxiosTransform]:服务端返回格式无法解析'
 
-  if (ret === ApiResultEnum.SUCCESS) {
+  if (ret === EApiResult.SUCCESS) {
     return data
   }
 
-  if (ret === ApiResultEnum.JWT_ERROR && msg === 'JwtException') {
+  if (ret === EApiResult.JWT_ERROR && msg === 'JwtException') {
     const sessionStore = useSessionStore()
     const { ret: refreshRet, token, refToken } = await refreshTokenApi(sessionStore.getSession.refToken)
     if (refreshRet < 0) {
@@ -120,7 +120,7 @@ async function responseInterceptor(res: AxiosResponse<Result>, option: RequestOp
     ElMessage.error(msg)
   }
 
-  throw new Error(ret === ApiResultEnum.UNKNOW ? msg : '服务端:' + msg)
+  throw new Error(ret === EApiResult.UNKNOW ? msg : '服务端:' + msg)
 }
 
 /**

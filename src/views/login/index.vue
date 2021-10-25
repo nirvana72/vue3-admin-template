@@ -2,10 +2,10 @@
   <div class="min-h-screen bg-gray-100 dark:bg-gray-800 py-6 flex flex-col justify-center sm:py-12">
     <div class="tools">
       <div class="icon">
-        <DarkMode class="text-2xl" />
+        <TheDarkMode class="text-2xl" />
       </div>
       <div class="icon ml-2">
-        <GitHub class="text-2xl" />
+        <TheGitHub class="text-2xl" />
       </div>
     </div>
     <div class="relative py-3 sm:max-w-xl sm:mx-auto">
@@ -55,18 +55,18 @@
 </template>
 
 <script lang="ts">
-import { useSessionStore, UserSession } from '@/store/modules/session'
+import { useSessionStore, IUserSession } from '@/store/modules/session'
 import { useRouter } from 'vue-router'
 import { ElMessage } from 'element-plus'
-import DarkMode from '@/layout/header/tools/Darkmode.vue'
-import GitHub from '@/layout/header/tools/GitHub.vue'
+import TheDarkMode from '@/layout/header/tools/Darkmode.vue'
+import TheGitHub from '@/layout/header/tools/GitHub.vue'
 import { defineComponent, reactive, ref, toRaw } from 'vue'
 import { useAppEnv } from '@/utils/useAppEnv'
 import { http } from '@/utils/http'
 
 export default defineComponent({
   name: 'AppLogin',
-  components: { DarkMode, GitHub },
+  components: { TheDarkMode, TheGitHub },
   setup() {
     const sessionStore = useSessionStore()
     const router = useRouter()
@@ -82,7 +82,7 @@ export default defineComponent({
       const data = toRaw(formModule)
       loading.value = true
       http
-        .post<UserSession>('/login', { data })
+        .post<IUserSession>('/login', { data })
         .then(async (session) => {
           sessionStore.setSesssion(session)
           await router.replace('/')

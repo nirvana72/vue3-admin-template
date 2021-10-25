@@ -9,7 +9,7 @@
 
 <script lang="ts">
 import { defineComponent, computed } from 'vue'
-import { useAppStore, MenuState } from '@/store/modules/app'
+import { useAppStore, EMenuState } from '@/store/modules/app'
 import AppBreadcrumb from './Breadcrumb.vue'
 import AppPageTabs from './tabs/index.vue'
 import Tools from './tools/index.vue'
@@ -23,7 +23,7 @@ export default defineComponent({
     const isMobile = computed(() => appStore.getSetting.isMobile)
     const withPageTab = computed(() => appStore.getSetting.withPageTab)
     const menuToggleIcon = computed(() =>
-      appStore.getMenuState === MenuState.FOLD ? 'ant-design:menu-unfold-outlined' : 'ant-design:menu-fold-outlined',
+      appStore.getMenuState === EMenuState.FOLD ? 'ant-design:menu-unfold-outlined' : 'ant-design:menu-fold-outlined',
     )
 
     function toggleMenuState() {

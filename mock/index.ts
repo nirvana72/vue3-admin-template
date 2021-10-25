@@ -14,16 +14,16 @@ export function setupMockServer(): void {
   Mock.setup({ timeout: 500 })
 }
 
-export type MockType = 'get' | 'post' | 'put' | 'delete'
+export type TMockMethod = 'get' | 'post' | 'put' | 'delete'
 
-export interface MockPayload {
+export interface IMockPayload {
   url: string
-  type: MockType
+  type: TMockMethod
   body: string
 }
 
-export interface MockMethod {
+export interface IMockApi {
   api: string | RegExp
-  method: MockType
-  handle: (payload?: any) => any
+  method: TMockMethod
+  handle: (payload: IMockPayload) => any
 }

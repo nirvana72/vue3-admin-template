@@ -1,34 +1,34 @@
 <template>
   <ElContainer id="appWrapper">
-    <ElAside v-show="showSideMenu" id="appAside" :class="menuState">
-      <AppSider />
+    <ElAside v-show="isShowSideMenu" id="appAside" :class="menuState">
+      <TheSider />
     </ElAside>
     <ElContainer id="appContainer" :class="{ headerfixed: isHeaderFixed }">
       <ElHeader id="appHeader">
-        <AppHeader />
+        <TheHeader />
       </ElHeader>
       <ElMain id="appMain">
-        <AppContent />
+        <TheContent />
       </ElMain>
     </ElContainer>
   </ElContainer>
 </template>
 <script lang="ts">
 import { defineComponent, computed, watch } from 'vue'
-import { useAppStore, MenuState } from '@/store/modules/app'
+import { useAppStore, EMenuState } from '@/store/modules/app'
 import { ElContainer, ElAside, ElHeader, ElMain } from 'element-plus'
-import AppSider from './sider/index.vue'
-import AppHeader from './header/index.vue'
-import AppContent from './content/index.vue'
+import TheSider from './sider/index.vue'
+import TheHeader from './header/index.vue'
+import TheContent from './content/index.vue'
 import { useBreakpoints, breakpointsTailwind } from '@vueuse/core'
 import { getAppHeaderHeight } from '@/layout/helper'
 
 export default defineComponent({
   name: 'Layout',
-  components: { ElContainer, ElAside, ElHeader, ElMain, AppSider, AppHeader, AppContent },
+  components: { ElContainer, ElAside, ElHeader, ElMain, TheSider, TheHeader, TheContent },
   setup() {
     const appStore = useAppStore()
-    const showSideMenu = computed(() => appStore.getSetting.showSideMenu)
+    const isShowSideMenu = computed(() => appStore.getSetting.showSideMenu)
     const isHeaderFixed = computed(() => appStore.getSetting.headerFixed)
     const breakpoints = useBreakpoints(breakpointsTailwind)
     const isSmallerLg = breakpoints.smaller('lg')
@@ -42,14 +42,14 @@ export default defineComponent({
     watch(
       isSmallerLg,
       (flag) => {
-        const state = flag ? MenuState.FOLD : MenuState.EXPAND
+        const state = flag ? EMenuState.FOLD : EMenuState.EXPAND
         appStore.setMenuState(state)
       },
       { immediate: true },
     )
 
     return {
-      showSideMenu,
+      isShowSideMenu,
       isHeaderFixed,
       menuState,
       appHeaderHeight,

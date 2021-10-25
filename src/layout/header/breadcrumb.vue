@@ -18,7 +18,7 @@ import { useAppStore } from '@/store/modules/app'
 
 type Path = '' | undefined
 
-interface BreadItem {
+interface IBreadItem {
   label: string
   path: Path
 }
@@ -31,11 +31,11 @@ export default defineComponent({
     const appStore = useAppStore()
     const router = useRouter()
     const { currentRoute } = router
-    const breadItems = ref<BreadItem[]>([])
+    const breadItems = ref<IBreadItem[]>([])
     const hideSingleChildMenu = computed(() => appStore.getSetting.hideSingleChildMenu)
 
-    function getBreadItems(): BreadItem[] {
-      let items: BreadItem[] = []
+    function getBreadItems(): IBreadItem[] {
+      let items: IBreadItem[] = []
       const routes = router.getRoutes().filter((r) => r.meta.hiddenMenu !== true)
       const pathAry = compact(currentRoute.value.path.split('/'))
       for (let i = 0; i < pathAry.length; i++) {

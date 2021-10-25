@@ -7,7 +7,7 @@
 <script lang="ts">
 import { defineComponent, reactive } from 'vue'
 
-export interface IItemForm {
+export interface ITheForm {
   show: () => void
 }
 

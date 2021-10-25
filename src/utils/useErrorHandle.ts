@@ -1,5 +1,5 @@
 import { App } from 'vue'
-import { useErrorLogStore, ErrorTypeEnum, ErrorModule } from '@/store/modules/errorLog'
+import { useErrorLogStore, ErrorTypeEnum, IAppError } from '@/store/modules/errorLog'
 import { useAppStore } from '@/store/modules/app'
 
 export function setupErrorHandle(app: App): void {
@@ -42,7 +42,7 @@ function scriptErrorHandler(
   if (event === 'Script error.' && !source) {
     return false
   }
-  const errorInfo: Partial<ErrorModule> = {}
+  const errorInfo: Partial<IAppError> = {}
   colno = colno || (window.event && (window.event as any).errorCharacter) || 0
   errorInfo.message = event as string
   if (error?.stack) {
@@ -58,7 +58,7 @@ function scriptErrorHandler(
     file: source as string,
     detail: 'lineno' + lineno,
     url: window.location.href,
-    ...(errorInfo as Pick<ErrorModule, 'message' | 'stack'>),
+    ...(errorInfo as Pick<IAppError, 'message' | 'stack'>),
   })
   return true
 }

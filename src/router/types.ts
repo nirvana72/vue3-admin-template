@@ -7,7 +7,7 @@ export type Component<T extends any = any> =
   | (() => Promise<T>)
 
 // 扩展 routeMeta 字段
-export interface AppRouteMeta {
+interface IAppRouteMeta {
   // title
   title: string
   // 图标
@@ -25,26 +25,26 @@ export interface AppRouteMeta {
 }
 
 // 扩展 Route 字段
-export interface AppRouteModule extends Omit<_RouteRecordBase, 'meta' | 'children'> {
+export interface IAppRoute extends Omit<_RouteRecordBase, 'meta' | 'children'> {
   // 权限
   auth?: string
   // 组件
   component?: Component
 
-  meta: AppRouteMeta
+  meta: IAppRouteMeta
 
-  children?: AppRouteModule[]
+  children?: IAppRoute[]
 }
 
 // 菜单
-export interface AppMenu {
+export interface IAppMenu {
   label: string
 
   icon?: string
 
   path: string
 
-  children?: AppMenu[]
+  children?: IAppMenu[]
 
   orderNo?: number
 }

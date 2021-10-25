@@ -77,35 +77,35 @@
       </div>
     </el-card>
 
-    <AppPopMenu v-if="asyncComponent.isLoad('popMenuRef')" ref="popMenuRef" :items="popMenuItems" />
+    <AppPopMenu v-if="componentHandler.async('popMenuRef')" ref="popMenuRef" :items="popMenuItems" />
 
-    <ItemForm v-if="asyncComponent.isLoad('itemFormRef')" ref="itemFormRef" />
+    <TheForm v-if="componentHandler.async('theFormRef')" ref="theFormRef" />
   </app-page-warpper>
 </template>
 
 <script lang="ts">
 import { defineAsyncComponent, defineComponent, onMounted, reactive } from 'vue'
-import { getUserListApi, GetListReqModule, GetListRspItemModule as RowItem } from '@/api/sys/user'
-import { ApiGetListRspModule, AppBoolen } from '@/api/types'
+import { getUserListApi, IGetListReq, IGetListRspItem as IListItem } from '@/api/sys/user'
+import { IApiGetListRsp, EAppBoolen } from '@/api/types'
 import { ElLoading } from 'element-plus'
 import { parseTime, getBetterTableRowsNumber } from '@/utils/tools'
 import { IAppPopMenu } from '@/components/AppPopMenu/index.vue'
 import { popMenuItems } from './popMenu'
-import { IItemForm } from './form.vue'
-import { useAsyncComponent } from '@/utils/useAsyncComponent'
+import { ITheForm } from './form.vue'
+import { useComponentHandler } from '@/utils/componentHandler'
 
 // TODO from表单
 
 export default defineComponent({
   name: 'SysUserIndex',
   components: {
-    ItemForm: defineAsyncComponent(() => import('./form.vue')),
+    TheForm: defineAsyncComponent(() => import('./form.vue')),
     AppPopMenu: defineAsyncComponent(() => import('@/components/AppPopMenu/index.vue')),
   },
   setup() {
     const betterTableRowsNumber = getBetterTableRowsNumber({ rowHeight: 70, minusHeight: 70 })
-    const query = reactive<GetListReqModule>({ withOnline: AppBoolen.TRUE, limit: betterTableRowsNumber })
-    const datasource = reactive<ApiGetListRspModule<RowItem>>({
+    const query = reactive<IGetListReq>({ withOnline: EAppBoolen.TRUE, limit: betterTableRowsNumber })
+    const datasource = reactive<IApiGetListRsp<IListItem>>({
       list: [],
       total: 0,
     })
@@ -128,14 +128,14 @@ export default defineComponent({
       getList(1)
     }
 
-    const asyncComponent = useAsyncComponent()
+    const componentHandler = useComponentHandler()
 
-    function onRowCommand(row: RowItem, e: MouseEvent) {
-      asyncComponent.load<IAppPopMenu>('popMenuRef').then((comp) => comp.show(e, row))
+    function onRowCommand(row: IListItem, e: MouseEvent) {
+      componentHandler.getAsync<IAppPopMenu>('popMenuRef').then((comp) => comp.show(e, row))
     }
 
     function onCreateCommand() {
-      asyncComponent.load<IItemForm>('itemFormRef').then((comp) => comp.show())
+      componentHandler.getAsync<ITheForm>('theFormRef').then((comp) => comp.show())
     }
 
     onMounted(getList)
@@ -149,7 +149,7 @@ export default defineComponent({
       popMenuItems,
       onRowCommand,
       onCreateCommand,
-      asyncComponent,
+      componentHandler,
     }
   },
 })

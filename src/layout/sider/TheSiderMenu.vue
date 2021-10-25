@@ -11,7 +11,7 @@
 <script lang="ts">
 import { defineComponent, computed, watch } from 'vue'
 import { ElMenu, ElMenuItem, ElMessageBox } from 'element-plus'
-import { useAppStore, MenuState } from '@/store/modules/app'
+import { useAppStore, EMenuState } from '@/store/modules/app'
 import { usePermissionStore } from '@/store/modules/permission'
 import AppMenuItem from './TheSiderMenuItem.vue'
 import { useRouter } from 'vue-router'
@@ -25,7 +25,7 @@ export default defineComponent({
     const permissionStore = usePermissionStore()
 
     const menuList = computed(() => permissionStore.getMenuList)
-    const isCollapse = computed(() => appStore.getMenuState === MenuState.FOLD)
+    const isCollapse = computed(() => appStore.getMenuState === EMenuState.FOLD)
     const curPath = computed(() => router.currentRoute.value.path)
 
     watch(

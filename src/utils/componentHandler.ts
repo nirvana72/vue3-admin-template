@@ -2,7 +2,7 @@ import { ComponentPublicInstance, getCurrentInstance, ref } from 'vue'
 
 type Proxy = ComponentPublicInstance | null | undefined
 
-class AsyncComponent {
+class ComponentHandler {
   private components = ref(new Set<string>())
 
   private proxy: Proxy
@@ -11,11 +11,15 @@ class AsyncComponent {
     this.proxy = getCurrentInstance()!.proxy
   }
 
-  public isLoad(name: string): boolean {
+  public async(name: string): boolean {
     return this.components.value.has(name)
   }
 
-  public load<T>(name: string): Promise<T> {
+  public get<T>(name: string): T {
+    return this.proxy?.$refs[name] as T
+  }
+
+  public getAsync<T>(name: string): Promise<T> {
     return new Promise((resolve, reject) => {
       if (this.proxy?.$refs[name]) {
         resolve(this.proxy?.$refs[name] as T)
@@ -42,6 +46,6 @@ class AsyncComponent {
   }
 }
 
-export function useAsyncComponent(): AsyncComponent {
-  return new AsyncComponent()
+export function useComponentHandler(): ComponentHandler {
+  return new ComponentHandler()
 }

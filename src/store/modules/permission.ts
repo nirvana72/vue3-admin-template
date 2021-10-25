@@ -1,4 +1,4 @@
-import type { AppMenu, AppRouteModule } from '@/router/types'
+import { IAppMenu, IAppRoute } from '@/router/types'
 import { defineStore } from 'pinia'
 import { getAsyncRoutes } from '@/router'
 import { transformRouteToMenu, flatMultiLevelRoutes, filterRoutesWithAuths } from '@/router/helper'
@@ -6,21 +6,21 @@ import { useAppStore } from '@/store/modules/app'
 import { useSessionStore } from '@/store/modules/session'
 import { getRoleAndAuths } from '@/api/sys/admin'
 
-interface PermissionState {
+interface IPermissionState {
   // 是否已加载路由 flag
   isInitRoute: boolean
   // 菜单
-  menuList: AppMenu[]
+  menuList: IAppMenu[]
 }
 
 export const usePermissionStore = defineStore({
   id: 'store-permission',
-  state: (): PermissionState => ({
+  state: (): IPermissionState => ({
     menuList: [],
     isInitRoute: false,
   }),
   getters: {
-    getMenuList(): AppMenu[] {
+    getMenuList(): IAppMenu[] {
       return this.menuList
     },
     getIsInitRoute(): boolean {
@@ -28,7 +28,7 @@ export const usePermissionStore = defineStore({
     },
   },
   actions: {
-    buildMenu(routes?: AppRouteModule[]) {
+    buildMenu(routes?: IAppRoute[]) {
       if (!routes) {
         routes = getAsyncRoutes()
 
@@ -42,7 +42,7 @@ export const usePermissionStore = defineStore({
       } = useAppStore()
       this.menuList = transformRouteToMenu(hideSingleChildMenu, routes)
     },
-    async buildAsyncRouter(): Promise<AppRouteModule[]> {
+    async buildAsyncRouter(): Promise<IAppRoute[]> {
       // 根据权限过滤路由
       let routes = getAsyncRoutes()
 

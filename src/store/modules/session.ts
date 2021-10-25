@@ -1,7 +1,7 @@
 import { Nullable } from 'element-plus/es/utils/types'
 import { defineStore } from 'pinia'
 
-export interface UserSession {
+export interface IUserSession {
   userId: number
   realName: string
   avatar: string
@@ -9,15 +9,15 @@ export interface UserSession {
   refToken: string
 }
 
-export interface UserRole {
+export interface IUserRole {
   id: string
   name: string
 }
 
-interface SessionState {
-  session: Nullable<UserSession>
+interface ISessionState {
+  session: Nullable<IUserSession>
   time: string
-  role: UserRole
+  role: IUserRole
   auths: string[]
 }
 
@@ -25,14 +25,14 @@ const STORE_KEY = 'app-session'
 
 export const useSessionStore = defineStore({
   id: 'store-session',
-  state: (): SessionState => ({
+  state: (): ISessionState => ({
     session: null,
     time: new Date().getTime().toString(),
     role: { id: 'unknow', name: 'unknow' },
     auths: [],
   }),
   getters: {
-    getSession(): UserSession {
+    getSession(): IUserSession {
       if (this.session === null) {
         const store = sessionStorage.getItem(STORE_KEY)
         if (store) {
@@ -49,7 +49,7 @@ export const useSessionStore = defineStore({
       }
       return this.session!
     },
-    getRole(): UserRole {
+    getRole(): IUserRole {
       return this.role
     },
     getAuths(): string[] {
@@ -63,7 +63,7 @@ export const useSessionStore = defineStore({
     },
   },
   actions: {
-    setSesssion(session: UserSession) {
+    setSesssion(session: IUserSession) {
       this.session = session
       this.time = new Date().getTime().toString()
       sessionStorage.setItem(STORE_KEY, JSON.stringify(session))
@@ -74,7 +74,7 @@ export const useSessionStore = defineStore({
         this.time = new Date().getTime().toString()
       }
     },
-    setRoleAndAuths(role: UserRole, auths: string[]) {
+    setRoleAndAuths(role: IUserRole, auths: string[]) {
       this.role = role
       this.auths = auths
     },

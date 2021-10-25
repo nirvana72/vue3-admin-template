@@ -1,11 +1,11 @@
 import axios, { AxiosInstance, AxiosRequestConfig } from 'axios'
-import { AxiosCreateSettings, RequestOption } from './types'
+import { IAxiosCreateSettings, IHttpRequestOption } from './types'
 
 export class MyAxios {
   private instance: AxiosInstance
-  private readonly settings: AxiosCreateSettings
+  private readonly settings: IAxiosCreateSettings
 
-  constructor(settings: AxiosCreateSettings) {
+  constructor(settings: IAxiosCreateSettings) {
     this.settings = settings
     this.instance = axios.create(settings)
 
@@ -15,34 +15,34 @@ export class MyAxios {
     }
   }
 
-  get<T = any>(url: string, config: AxiosRequestConfig = {}, option?: RequestOption): Promise<T> {
+  get<T = any>(url: string, config: AxiosRequestConfig = {}, option?: IHttpRequestOption): Promise<T> {
     config.url = url
     config.method = 'GET'
     return this.request(config, option)
   }
 
-  post<T = any>(url: string, config: AxiosRequestConfig = {}, option?: RequestOption): Promise<T> {
+  post<T = any>(url: string, config: AxiosRequestConfig = {}, option?: IHttpRequestOption): Promise<T> {
     config.url = url
     config.method = 'POST'
     return this.request(config, option)
   }
 
-  put<T = any>(url: string, config: AxiosRequestConfig = {}, option?: RequestOption): Promise<T> {
+  put<T = any>(url: string, config: AxiosRequestConfig = {}, option?: IHttpRequestOption): Promise<T> {
     config.url = url
     config.method = 'PUT'
     return this.request(config, option)
   }
 
-  delete<T = any>(url: string, config: AxiosRequestConfig = {}, option?: RequestOption): Promise<T> {
+  delete<T = any>(url: string, config: AxiosRequestConfig = {}, option?: IHttpRequestOption): Promise<T> {
     config.url = url
     config.method = 'DELETE'
     return this.request(config, option)
   }
 
-  request<T = any>(config: AxiosRequestConfig, option?: RequestOption): Promise<T> {
+  request<T = any>(config: AxiosRequestConfig, option?: IHttpRequestOption): Promise<T> {
     const { requestOption } = this.settings
     // 每个请求都可重写option配置
-    const _option: RequestOption = Object.assign({}, requestOption, option)
+    const _option: IHttpRequestOption = Object.assign({}, requestOption, option)
 
     const { requestInterceptor, responseInterceptor } = this.settings
 

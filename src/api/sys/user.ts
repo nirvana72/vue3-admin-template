@@ -1,16 +1,16 @@
 import { http } from '@/utils/http'
-import { AppBoolen, AppUserState, ApiGetListRspModule } from '@/api/types'
+import { EAppBoolen, EAppUserState, IApiGetListRsp } from '@/api/types'
 
-export interface GetListReqModule {
+export interface IGetListReq {
   page?: number
   limit?: number
   account?: string
   roleId?: string
   orderBy?: string
-  withOnline?: AppBoolen
+  withOnline?: EAppBoolen
 }
 
-export interface GetListRspItemModule {
+export interface IGetListRspItem {
   userId: number
   account: string
   realName: string
@@ -18,18 +18,18 @@ export interface GetListRspItemModule {
   roleName: string
   companyId: number
   companyName: string
-  state: AppUserState
+  state: EAppUserState
   writeTime: string
   avatarUrl: string
   thisTime: string
   thisArea: string
-  online: AppBoolen
+  online: EAppBoolen
 }
 
 // 获取系统用户
-export function getUserListApi(params: GetListReqModule): Promise<ApiGetListRspModule<GetListRspItemModule>> {
+export function getUserListApi(params: IGetListReq): Promise<IApiGetListRsp<IGetListRspItem>> {
   return new Promise((resolve) => {
-    http.get<ApiGetListRspModule<GetListRspItemModule>>('/sys/user/list', { params }).then((data) => {
+    http.get<IApiGetListRsp<IGetListRspItem>>('/sys/user/list', { params }).then((data) => {
       resolve(data)
     })
   })

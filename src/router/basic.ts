@@ -1,8 +1,8 @@
-import type { AppRouteModule } from '@/router/types'
+import type { IAppRoute } from '@/router/types'
 import { defaultLayout } from '@/router'
 
 // login
-const LOGIN: AppRouteModule = {
+const LOGIN: IAppRoute = {
   name: 'Login',
   path: '/login',
   component: () => import('@/views/login/index.vue'),
@@ -10,7 +10,7 @@ const LOGIN: AppRouteModule = {
 }
 
 // root
-const ROOT: AppRouteModule = {
+const ROOT: IAppRoute = {
   name: 'Home',
   path: '/',
   component: defaultLayout,
@@ -26,7 +26,7 @@ const ROOT: AppRouteModule = {
   ],
 }
 
-const REDIRECT_ROUTE: AppRouteModule = {
+const REDIRECT_ROUTE: IAppRoute = {
   name: 'Redirect',
   path: '/redirect',
   component: defaultLayout,
@@ -42,7 +42,7 @@ const REDIRECT_ROUTE: AppRouteModule = {
 }
 
 // 404 on a page
-const PAGE_NOT_FOUND: AppRouteModule = {
+const PAGE_NOT_FOUND: IAppRoute = {
   name: 'PageNotFound',
   path: '/:path(.*)*',
   component: defaultLayout,
@@ -58,7 +58,7 @@ const PAGE_NOT_FOUND: AppRouteModule = {
 }
 
 // error page
-const ERROR_Log_PAGE: AppRouteModule = {
+const ERROR_Log_PAGE: IAppRoute = {
   name: 'ErrorLogPage',
   path: '/error-log',
   component: defaultLayout,

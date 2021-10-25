@@ -1,19 +1,19 @@
 import axios from 'axios'
 import { useAppEnv } from '@/utils/useAppEnv'
-import { UserRole } from '@/store/modules/session'
+import { IUserRole } from '@/store/modules/session'
 import { http } from '@/utils/http'
 
 // -------------------------------------------------------------
 // 获取登录角色和权限
 
-export interface getRoleAndAuthsRes {
-  role: UserRole
+export interface IGetRoleAndAuthsRes {
+  role: IUserRole
   auths: string[]
 }
 
-export function getRoleAndAuths(): Promise<getRoleAndAuthsRes> {
+export function getRoleAndAuths(): Promise<IGetRoleAndAuthsRes> {
   return new Promise((resolve) => {
-    http.get<getRoleAndAuthsRes>('/sys/admin/role_and_auths').then((res) => {
+    http.get<IGetRoleAndAuthsRes>('/sys/admin/role_and_auths').then((res) => {
       resolve(res)
     })
   })
@@ -44,13 +44,13 @@ export function changePasswordApi(oldPwd: string, newPwd: string): Promise<void>
 // -------------------------------------------------------------
 // 刷新jwt token
 
-export interface refreshTokenRes {
+export interface IRefreshTokenRes {
   ret: number
   token?: string
   refToken?: string
 }
 
-export function refreshTokenApi(refToken: string): Promise<refreshTokenRes> {
+export function refreshTokenApi(refToken: string): Promise<IRefreshTokenRes> {
   const appEnv = useAppEnv()
   return new Promise((resolve) => {
     axios.post(`${appEnv.VITE_API_URL}/sys/admin/refresh_token`, { refToken }).then((rsp) => {

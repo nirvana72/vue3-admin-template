@@ -3,24 +3,24 @@ import { defineStore } from 'pinia'
 import appSettings, { AppSettings } from '@/settings'
 import { useLocalStorage } from '@vueuse/core'
 
-export const enum MenuState {
+export const enum EMenuState {
   FOLD = 'fold',
   EXPAND = 'expand',
 }
 
-interface AppState {
-  menuState: MenuState
+interface IAppState {
+  menuState: EMenuState
   setting: Nullable<AppSettings>
 }
 
 export const useAppStore = defineStore({
   id: 'store-app',
-  state: (): AppState => ({
-    menuState: MenuState.EXPAND,
+  state: (): IAppState => ({
+    menuState: EMenuState.EXPAND,
     setting: null,
   }),
   getters: {
-    getMenuState(): MenuState {
+    getMenuState(): EMenuState {
       return this.menuState
     },
     getSetting(): AppSettings {
@@ -33,9 +33,9 @@ export const useAppStore = defineStore({
   },
   actions: {
     toggleMenuState(): void {
-      this.menuState = this.menuState === MenuState.FOLD ? MenuState.EXPAND : MenuState.FOLD
+      this.menuState = this.menuState === EMenuState.FOLD ? EMenuState.EXPAND : EMenuState.FOLD
     },
-    setMenuState(state: MenuState): void {
+    setMenuState(state: EMenuState): void {
       this.menuState = state
     },
     reset() {

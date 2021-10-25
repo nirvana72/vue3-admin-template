@@ -9,13 +9,13 @@
 
 <script lang="ts">
 import { defineComponent, reactive, ref } from 'vue'
-import { useTabsStore, TabStoreItem } from '@/store/modules/tabs'
+import { useTabsStore, ITabStoreItem } from '@/store/modules/tabs'
 import { onClickOutside } from '@vueuse/core'
 import { Nullable } from 'element-plus/lib/utils/types'
 import { useRouter } from 'vue-router'
 
-export interface TabMenuModule {
-  show(tab: TabStoreItem, e: MouseEvent): void
+export interface ITabMenu {
+  show(tab: ITabStoreItem, e: MouseEvent): void
 }
 
 export default defineComponent({
@@ -25,7 +25,7 @@ export default defineComponent({
     const target = ref(null)
     const router = useRouter()
 
-    let activeTab: Nullable<TabStoreItem> = null
+    let activeTab: Nullable<ITabStoreItem> = null
     const state = reactive({
       visible: false,
       closeAble: true,
@@ -33,7 +33,7 @@ export default defineComponent({
       y: '',
     })
 
-    function show(tab: TabStoreItem, e: MouseEvent) {
+    function show(tab: ITabStoreItem, e: MouseEvent) {
       activeTab = tab
       state.x = `${e.x}px`
       state.y = `${e.y}px`

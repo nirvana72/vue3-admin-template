@@ -3,7 +3,7 @@ import { LocationQuery, RouteLocationNormalized, RouteParams, Router } from 'vue
 import { unref } from 'vue'
 import { cloneDeep } from 'lodash'
 
-export interface TabStoreItem {
+export interface ITabStoreItem {
   title: string
   name: string
   path: string
@@ -13,21 +13,21 @@ export interface TabStoreItem {
   query: LocationQuery // 刷新重定向时, 带上这两参数
 }
 
-interface PageTabsState {
-  tabList: TabStoreItem[]
+interface IPageTabsState {
+  tabList: ITabStoreItem[]
   cacheList: Set<string>
   isTabSwitch: boolean // 是否切换tab标识, tab切换时无需走 addTab 逻辑
 }
 
 export const useTabsStore = defineStore({
   id: 'store-page-tabs',
-  state: (): PageTabsState => ({
+  state: (): IPageTabsState => ({
     tabList: [],
     cacheList: new Set(),
     isTabSwitch: false,
   }),
   getters: {
-    getTabList(): TabStoreItem[] {
+    getTabList(): ITabStoreItem[] {
       return this.tabList
     },
     getCacheList(): string[] {
@@ -89,8 +89,8 @@ export const useTabsStore = defineStore({
 
       this.updateCacheList()
     },
-    closeTab(tab: TabStoreItem, router: Router) {
-      const close = (tab: TabStoreItem) => {
+    closeTab(tab: ITabStoreItem, router: Router) {
+      const close = (tab: ITabStoreItem) => {
         const index = this.tabList.findIndex((item) => item.path === tab.path)
         if (index !== -1) {
           this.tabList.splice(index, 1)
@@ -125,7 +125,7 @@ export const useTabsStore = defineStore({
       close(tab)
       replace(nextPath)
     },
-    findTabByRoute(route: RouteLocationNormalized): TabStoreItem | undefined {
+    findTabByRoute(route: RouteLocationNormalized): ITabStoreItem | undefined {
       const { path, fullPath } = route
       const tabKey = fullPath || path
       return this.tabList.find((el) => el.path === tabKey)
@@ -136,7 +136,7 @@ export const useTabsStore = defineStore({
         this.closeTab(findTab, router)
       }
     },
-    closeOtherTabs(remainTab: TabStoreItem, router: Router) {
+    closeOtherTabs(remainTab: ITabStoreItem, router: Router) {
       const { path } = remainTab
       this.tabList = this.tabList.filter((tab) => tab.affix || tab.path === path)
       this.updateCacheList()
@@ -148,7 +148,7 @@ export const useTabsStore = defineStore({
       const target = this.tabList.length > 0 ? this.tabList[0].path : '/'
       router.replace(target)
     },
-    refreshPage(tab: TabStoreItem, router: Router) {
+    refreshPage(tab: ITabStoreItem, router: Router) {
       const { name, path, params: _params = {}, query = {} } = tab
       this.cacheList.delete(name)
 

@@ -9,47 +9,47 @@
       <app-icon icon="icon-park-outline:setting-config" @click="showAppSetting" />
     </li>
     <li v-if="!isMobile" title="全屏">
-      <FullScreen />
+      <TheFullScreen />
     </li>
     <li title="暗黑模式">
-      <DarkMode />
+      <TheDarkMode />
     </li>
     <li v-if="errorCount > 0" title="出错信息" class="mt-1">
       <ElBadge :value="errorCount">
-        <app-icon icon="ant-design:bug-filled" class="text-red-500" @click="showErrorInfo" />
+        <app-icon icon="gridicons:bug" class="text-red-500" @click="showErrorInfo" />
       </ElBadge>
     </li>
     <li title="个人中心">
-      <UserInfo />
+      <TheUserInfo />
     </li>
     <li title="github">
-      <GitHub />
+      <TheGitHub />
     </li>
   </ul>
-  <AppSetting v-if="asyncComponent.isLoad('appSettingRef')" ref="appSettingRef" />
+  <TheAppSetting v-if="compHandler.async('appSettingRef')" ref="appSettingRef" />
 </template>
 
 <script lang="ts">
 import { computed, defineAsyncComponent, defineComponent } from 'vue'
-import DarkMode from './Darkmode.vue'
-import FullScreen from './FullScreen.vue'
-import UserInfo from './UserInfo.vue'
-import GitHub from './GitHub.vue'
+import TheDarkMode from './Darkmode.vue'
+import TheFullScreen from './FullScreen.vue'
+import TheUserInfo from './UserInfo.vue'
+import TheGitHub from './GitHub.vue'
 import { IAppSetting } from '@/layout/setting/index.vue'
 import { ElBadge, ElMessageBox } from 'element-plus'
 import { useAppStore } from '@/store/modules/app'
 import { useErrorLogStore } from '@/store/modules/errorLog'
 import { useRouter } from 'vue-router'
-import { useAsyncComponent } from '@/utils/useAsyncComponent'
+import { useComponentHandler } from '@/utils/componentHandler'
 
 export default defineComponent({
   name: 'AppHeaderTools',
   components: {
-    DarkMode,
-    UserInfo,
-    FullScreen,
-    GitHub,
-    AppSetting: defineAsyncComponent(() => import('@/layout/setting/index.vue')),
+    TheDarkMode,
+    TheUserInfo,
+    TheFullScreen,
+    TheGitHub,
+    TheAppSetting: defineAsyncComponent(() => import('@/layout/setting/index.vue')),
     ElBadge,
   },
   setup() {
@@ -68,9 +68,9 @@ export default defineComponent({
       router.push('/error-log')
     }
 
-    const asyncComponent = useAsyncComponent()
+    const compHandler = useComponentHandler()
     function showAppSetting() {
-      asyncComponent.load<IAppSetting>('appSettingRef').then((comp) => comp.show())
+      compHandler.getAsync<IAppSetting>('appSettingRef').then((comp) => comp.show())
     }
 
     return {
@@ -79,7 +79,7 @@ export default defineComponent({
       notificationClick,
       showErrorInfo,
       showAppSetting,
-      asyncComponent,
+      compHandler,
     }
   },
 })

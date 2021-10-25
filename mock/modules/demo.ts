@@ -1,20 +1,21 @@
-import { MockMethod } from '../index'
-import { Result } from '@/utils/http/types'
-import { DemoPage1RspModule, DempPage1RspItemModule, DemoPage1ReqModule } from '@/api/demo/index'
+import { IMockApi } from '../index'
+import { IApiResult } from '@/utils/http/types'
+import { IDemoPage1Rsp, IDempPage1RspItem, IDemoPage1Req } from '@/api/demo/index'
 import { Random } from 'mockjs'
-import { MockPayload } from '../index'
+import { IMockPayload } from '../index'
 import { getUrlParams } from '@/utils/tools'
 
-const modules: MockMethod[] = [
+const modules: IMockApi[] = [
   {
     api: /\/demo\/page1/,
     method: 'get',
-    handle: ({ url }: MockPayload): Result<DemoPage1RspModule> => {
-      const params = getUrlParams(url) as DemoPage1ReqModule
+    handle: (payload: IMockPayload): IApiResult<IDemoPage1Rsp> => {
+      const { url } = payload
+      const params = getUrlParams(url) as IDemoPage1Req
       if (!params.page) params.page = 1
       if (!params.limit) params.limit = 10
 
-      const list: DempPage1RspItemModule[] = []
+      const list: IDempPage1RspItem[] = []
       const roles = [
         { id: 'admin', name: '管理员' },
         { id: 'customer', name: '业务员' },

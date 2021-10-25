@@ -1,13 +1,13 @@
-import { MockMethod } from '../../index'
-import { Result } from '@/utils/http/types'
-import { getRoleAndAuthsRes } from '@/api/sys/admin'
-import { UserSession } from '@/store/modules/session'
+import { IMockApi } from '../../index'
+import { IApiResult } from '@/utils/http/types'
+import { IGetRoleAndAuthsRes } from '@/api/sys/admin'
+import { IUserSession } from '@/store/modules/session'
 
-const modules: MockMethod[] = [
+const modules: IMockApi[] = [
   {
     api: /\/login$/,
     method: 'post',
-    handle: (): Result<UserSession> => {
+    handle: (): IApiResult<IUserSession> => {
       return {
         ret: 1,
         msg: 'success',
@@ -24,7 +24,7 @@ const modules: MockMethod[] = [
   {
     api: /\/sys\/admin\/role_and_auths$/,
     method: 'get',
-    handle: (): Result<getRoleAndAuthsRes> => {
+    handle: (): IApiResult<IGetRoleAndAuthsRes> => {
       return {
         ret: 1,
         msg: 'success',
@@ -56,7 +56,6 @@ const modules: MockMethod[] = [
       return {
         ret: 1,
         msg: 'success',
-        data: {},
       }
     },
   },

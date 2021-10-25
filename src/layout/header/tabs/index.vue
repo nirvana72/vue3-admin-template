@@ -23,9 +23,9 @@ import { defineComponent, computed, ref, unref, onMounted, watch } from 'vue'
 import { ElTabs, ElTabPane } from 'element-plus'
 import routeEmitter from '@/emitter/routeEmitter'
 import { useAppStore } from '@/store/modules/app'
-import { TabStoreItem, useTabsStore } from '@/store/modules/tabs'
+import { ITabStoreItem, useTabsStore } from '@/store/modules/tabs'
 import { useRouter } from 'vue-router'
-import TabMenu, { TabMenuModule } from './TabMenu.vue'
+import TabMenu, { ITabMenu } from './TabMenu.vue'
 import TabTools from './TabTools.vue'
 import { Pane } from 'element-plus/lib/components/tabs/src/token'
 import md5Hex from 'md5-hex'
@@ -39,7 +39,7 @@ export default defineComponent({
     const tabsStore = useTabsStore()
     const router = useRouter()
     const tabList = computed(() => tabsStore.getTabList)
-    const tabMenuRef = ref<TabMenuModule>()
+    const tabMenuRef = ref<ITabMenu>()
     const curPathMd5 = computed(() => {
       const { fullPath, path } = router.currentRoute.value
       return md5Hex(fullPath || path)
@@ -62,11 +62,11 @@ export default defineComponent({
       router.push(unref(tab.props.label))
     }
 
-    function closeTab(tab: TabStoreItem) {
+    function closeTab(tab: ITabStoreItem) {
       tabsStore.closeTab(tab, router)
     }
 
-    function openMenu(tab: TabStoreItem, e: MouseEvent) {
+    function openMenu(tab: ITabStoreItem, e: MouseEvent) {
       tabMenuRef.value?.show(tab, e)
     }
 

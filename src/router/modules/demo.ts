@@ -1,7 +1,7 @@
-import type { AppRouteModule } from '@/router/types'
+import type { IAppRoute } from '@/router/types'
 import { defaultLayout } from '@/router'
 
-const router: AppRouteModule = {
+const router: IAppRoute = {
   path: '/demo',
   name: 'Demo',
   component: defaultLayout,
