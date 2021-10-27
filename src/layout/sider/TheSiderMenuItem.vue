@@ -17,12 +17,12 @@
 <script lang="ts">
 import { defineComponent, PropType } from 'vue'
 import { ElSubMenu, ElMenuItem } from 'element-plus'
-import type { AppMenu } from '@/router/types'
+import type { IAppMenu } from '@/router/types'
 
 export default defineComponent({
   props: {
     items: {
-      type: Array as PropType<AppMenu[]>,
+      type: Array as PropType<IAppMenu[]>,
       default: () => [],
     },
   },
