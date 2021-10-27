@@ -9,7 +9,7 @@ const router: IAppRoute = {
   meta: {
     icon: 'bx:bxs-food-menu',
     title: '一级菜单',
-    orderNo: 4,
+    orderNo: 2,
   },
   children: [
     {

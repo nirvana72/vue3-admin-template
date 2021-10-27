@@ -1,7 +1,7 @@
 <template>
   <div class="app-title-input">
     <slot></slot>
-    <label v-if="title !== ''" class="title">{{ title }}</label>
+    <label v-if="title !== ''" class="title">{{ title }} :</label>
   </div>
 </template>
 

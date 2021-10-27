@@ -5,8 +5,8 @@ export class AppSettings {
   showSideMenu = true
   // 固定头部
   headerFixed = true
-  // 显示header
-  showHeader = true
+  // 显示headerStateBar
+  showHeaderStateBar = true
   // 显示设置功能 (修改需清空localStorage生效)
   showSetting = true
   // 是否启用tab功能

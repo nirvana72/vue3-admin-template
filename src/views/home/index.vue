@@ -15,12 +15,12 @@
       </ElCol>
     </ElRow>
 
-    <el-card shadow="none" class="el-card--fix mt-5">
+    <el-card shadow="none" class="el-card--app mt-5">
       <template #header> 流量趋势 </template>
       <TheChartLine ref="chartLine" />
     </el-card>
 
-    <el-card shadow="none" class="el-card--fix mt-5">
+    <el-card shadow="none" class="el-card--app mt-5">
       <template #header> 访问量 </template>
       <TheChartBar ref="chartBar" />
     </el-card>

@@ -1,7 +1,7 @@
 import { IMockApi, IMockPayload } from '../../index'
 import { IApiResult } from '@/utils/http/types'
-import { IApiGetListRsp } from '@/api/types'
-import { IGetListReq, IGetListRspItem } from '@/api/sys/user'
+import { IApiListRsp } from '@/api/types'
+import { IGetUserListReq, IGetUserListRspItem } from '@/api/sys/user'
 import { Random } from 'mockjs'
 import { getUrlParams } from '@/utils/tools'
 
@@ -9,12 +9,12 @@ const modules: IMockApi[] = [
   {
     api: /\/sys\/user\/list/,
     method: 'get',
-    handle: ({ url }: IMockPayload): IApiResult<IApiGetListRsp<IGetListRspItem>> => {
-      const params = getUrlParams(url) as IGetListReq
+    handle: ({ url }: IMockPayload): IApiResult<IApiListRsp<IGetUserListRspItem>> => {
+      const params = getUrlParams(url) as IGetUserListReq
       if (!params.page) params.page = 1
       if (!params.limit) params.limit = 10
 
-      const list: IGetListRspItem[] = []
+      const list: IGetUserListRspItem[] = []
       const roles = [
         { id: 'admin', name: '管理员' },
         { id: 'customer', name: '业务员' },
@@ -49,6 +49,50 @@ const modules: IMockApi[] = [
           list,
           total: 120,
         },
+      }
+    },
+  },
+  {
+    api: /\/sys\/user/,
+    method: 'post',
+    handle: (): IApiResult<unknown> => {
+      return {
+        ret: 1,
+        msg: 'success',
+        data: {},
+      }
+    },
+  },
+  {
+    api: /\/sys\/user/,
+    method: 'put',
+    handle: (): IApiResult<unknown> => {
+      return {
+        ret: 1,
+        msg: 'success',
+        data: {},
+      }
+    },
+  },
+  {
+    api: /\/sys\/user\/[0-9]{*}\/reset_password/,
+    method: 'post',
+    handle: (): IApiResult<unknown> => {
+      return {
+        ret: 1,
+        msg: 'success',
+        data: {},
+      }
+    },
+  },
+  {
+    api: /\/sys\/user\/[0-9]{*}/,
+    method: 'delete',
+    handle: (): IApiResult<unknown> => {
+      return {
+        ret: 1,
+        msg: 'success',
+        data: {},
       }
     },
   },

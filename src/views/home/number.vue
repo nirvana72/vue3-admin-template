@@ -1,5 +1,5 @@
 <template>
-  <el-card shadow="none" class="el-card--fix flex-1">
+  <el-card shadow="none" class="el-card--app flex-1">
     <template #header>
       <div class="flex items-center justify-between">
         <span>{{ title }}</span>

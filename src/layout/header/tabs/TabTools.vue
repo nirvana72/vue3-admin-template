@@ -33,7 +33,7 @@ export default defineComponent({
     }
 
     function fullContent() {
-      appSetting.showHeader = !appSetting.showHeader
+      appSetting.showHeaderStateBar = !appSetting.showHeaderStateBar
       appSetting.showSideMenu = !appSetting.showSideMenu
     }
 

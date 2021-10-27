@@ -9,7 +9,7 @@ const router: IAppRoute = {
   meta: {
     icon: 'carbon:settings-services',
     title: '系统管理',
-    orderNo: 1,
+    orderNo: 3,
   },
   children: [
     {

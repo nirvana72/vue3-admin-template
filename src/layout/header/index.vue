@@ -1,5 +1,5 @@
 <template>
-  <div v-show="showHeader" id="appHeaderState">
+  <div v-show="showHeaderStateBar" id="appHeaderState">
     <app-icon v-if="!isMobile" :icon="menuToggleIcon" @click="toggleMenuState" class="menu-toggle-icon" />
     <AppBreadcrumb v-if="!isMobile" />
     <Tools />
@@ -19,7 +19,7 @@ export default defineComponent({
   components: { AppBreadcrumb, AppPageTabs, Tools },
   setup() {
     const appStore = useAppStore()
-    const showHeader = computed(() => appStore.getSetting.showHeader)
+    const showHeaderStateBar = computed(() => appStore.getSetting.showHeaderStateBar)
     const isMobile = computed(() => appStore.getSetting.isMobile)
     const withPageTab = computed(() => appStore.getSetting.withPageTab)
     const menuToggleIcon = computed(() =>
@@ -33,7 +33,7 @@ export default defineComponent({
     return {
       toggleMenuState,
       menuToggleIcon,
-      showHeader,
+      showHeaderStateBar,
       withPageTab,
       isMobile,
     }

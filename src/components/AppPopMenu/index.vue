@@ -8,24 +8,13 @@
 
 <script lang="ts">
 import { defineComponent, reactive, PropType, ref } from 'vue'
-import { ButtonType } from 'element-plus'
-
-export interface IAppPopMenu {
-  show: (e: MouseEvent, row: any) => void
-}
-
-export interface IAppPopMenuItem<T> {
-  type?: ButtonType
-  auth?: (row: T) => boolean
-  label: string
-  click: (row: T) => void
-}
+import { IPopMenuItem } from '@/components/AppPopMenu/types'
 
 export default defineComponent({
   name: 'PopMenu',
   props: {
     items: {
-      type: Array as PropType<IAppPopMenuItem<any>[]>,
+      type: Array as PropType<IPopMenuItem<any>[]>,
       default: () => [],
     },
   },
@@ -36,7 +25,7 @@ export default defineComponent({
       y: '',
     })
 
-    const menus = ref<IAppPopMenuItem<any>[]>()
+    const menus = ref<IPopMenuItem<any>[]>()
 
     let rowTarget: any
 
@@ -55,7 +44,7 @@ export default defineComponent({
       state.visible = !state.visible
     }
 
-    function menuClick(item: IAppPopMenuItem<any>) {
+    function menuClick(item: IPopMenuItem<any>) {
       state.visible = false
       item.click(rowTarget)
     }
@@ -77,7 +66,7 @@ export default defineComponent({
   left: v-bind('state.x');
   top: v-bind('state.y');
   .el-button {
-    margin: 4px 0;
+    margin: 2px 0;
   }
 }
 </style>

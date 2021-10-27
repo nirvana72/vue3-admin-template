@@ -14,6 +14,7 @@ import {
   ElFormItem,
   ElDialog,
   ElLoading,
+  ElDivider,
 } from 'element-plus'
 
 export function setupElementUI(app: App): void {
@@ -31,4 +32,5 @@ export function setupElementUI(app: App): void {
   app.use(ElFormItem)
   app.use(ElDialog)
   app.use(ElLoading)
+  app.use(ElDivider)
 }

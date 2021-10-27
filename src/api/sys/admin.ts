@@ -5,7 +5,6 @@ import { http } from '@/utils/http'
 
 // -------------------------------------------------------------
 // 获取登录角色和权限
-
 export interface IGetRoleAndAuthsRes {
   role: IUserRole
   auths: string[]
@@ -21,7 +20,6 @@ export function getRoleAndAuths(): Promise<IGetRoleAndAuthsRes> {
 
 // -------------------------------------------------------------
 // 修改头像
-
 export function changeAvatarApi(avatar: string): Promise<void> {
   return new Promise((resolve) => {
     http.post('/sys/admin/change_avatar', { data: { avatar } }).then(() => {
@@ -32,7 +30,6 @@ export function changeAvatarApi(avatar: string): Promise<void> {
 
 // -------------------------------------------------------------
 // 修改密码
-
 export function changePasswordApi(oldPwd: string, newPwd: string): Promise<void> {
   return new Promise((resolve) => {
     http.post('/sys/admin/change_password', { data: { oldPwd, newPwd } }).then(() => {
@@ -43,7 +40,6 @@ export function changePasswordApi(oldPwd: string, newPwd: string): Promise<void>
 
 // -------------------------------------------------------------
 // 刷新jwt token
-
 export interface IRefreshTokenRes {
   ret: number
   token?: string

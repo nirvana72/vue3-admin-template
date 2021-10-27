@@ -1,5 +1,5 @@
 // 真假值
-export const enum EAppBoolen {
+export const enum EApiBoolen {
   TRUE = 1,
   FALSE = 0,
 }
@@ -12,7 +12,7 @@ export const enum EAppUserState {
 }
 
 // Api列表接口返回格式
-export interface IApiGetListRsp<T> {
+export interface IApiListRsp<T> {
   list: T[]
   total: number
 }

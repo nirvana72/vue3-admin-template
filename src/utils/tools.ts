@@ -1,6 +1,7 @@
 import dayJs from 'dayjs'
 import { useWindowSize } from '@vueuse/core'
 import { getAppHeaderHeight } from '@/layout/helper'
+import { get, set } from 'lodash'
 
 // 解析URL参数
 export function getUrlParams(url: string): any {
@@ -39,4 +40,14 @@ export function getBetterTableRowsNumber(params: { rowHeight?: number; minusHeig
   tableVisibleHeight -= 40 // 表头占用
   tableVisibleHeight -= 50 // 分页占用
   return Math.ceil(tableVisibleHeight / (params.rowHeight || 40))
+}
+
+/**
+ * 把第二参数对象属性赋值给第一参数对象, 不增加第一对象属性
+ */
+export function leftAssign(obj1: Record<string, unknown>, obj2: unknown): void {
+  Object.keys(obj1).forEach((key) => {
+    const val = get(obj2, key)
+    if (val) set(obj1, key, val)
+  })
 }

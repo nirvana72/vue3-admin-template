@@ -6,7 +6,7 @@
         <p>如果只有一个子菜单情况下, 可通过配置上提子菜单项</p>
       </div>
     </template>
-    <el-card shadow="none" class="el-card--fix">
+    <el-card shadow="none" class="el-card--app">
       <AddNum />
     </el-card>
   </app-page-warpper>
