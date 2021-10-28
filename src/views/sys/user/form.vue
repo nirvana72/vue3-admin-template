@@ -34,11 +34,11 @@ import { leftAssign } from '@/utils/tools'
 import RoleSelect from '@/views/components/RoleSelect.vue'
 import { ElMessageBox } from 'element-plus'
 
-type TItem = SysUserApi.IGetUserListRspItem
-type TForm = SysUserApi.IPostUserReq
+type TData = SysUserApi.IGetUserListRspItem
+type TParams = SysUserApi.IPostUserReq
 
 export interface ITheForm {
-  show: (item?: TItem) => void
+  show: (data?: TData) => void
 }
 
 export default defineComponent({
@@ -52,20 +52,20 @@ export default defineComponent({
     })
     const state = reactive(_state())
 
-    const _form = (): TForm => ({
+    const _form = (): TParams => ({
       userId: undefined,
       account: '',
       realName: '',
       roleId: '',
       state: 1,
     })
-    const form = reactive<TForm>(_form())
+    const form = reactive<TParams>(_form())
 
-    function show(item?: TItem) {
+    function show(data?: TData) {
       Object.assign(form, _form())
       Object.assign(state, _state())
-      if (item) {
-        leftAssign(form, item)
+      if (data) {
+        leftAssign(form, data)
         state.cmd = '修改'
       }
       state.visible = true

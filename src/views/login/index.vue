@@ -26,7 +26,7 @@
       <div class="relative px-4 py-10 bg-white dark:bg-gray-900 shadow-lg sm:rounded-3xl sm:p-20">
         <div class="max-w-md mx-auto">
           <div class="flex items-center">
-            <img src="@/assets/logo.png" class="w-10 mr-5" />
+            <img title="logo" src="@/assets/logo.png" class="w-10 mr-5" />
             <h1 class="text-2xl">{{ title }}</h1>
           </div>
           <el-form class="mt-10 w-80 mx-auto">

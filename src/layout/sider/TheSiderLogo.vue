@@ -1,6 +1,6 @@
 <template>
   <div id="appAsideTop">
-    <img src="@/assets/logo.png" />
+    <img title="logo" src="@/assets/logo.png" />
     <h1 v-if="menuState === 'expand'">{{ title }}</h1>
   </div>
 </template>

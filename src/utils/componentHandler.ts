@@ -2,7 +2,7 @@ import { ComponentPublicInstance, getCurrentInstance, ref } from 'vue'
 
 type Proxy = ComponentPublicInstance | null | undefined
 
-class ComponentHandler {
+export class ComponentHandler {
   private components = ref(new Set<string>())
 
   private proxy: Proxy

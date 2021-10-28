@@ -15,15 +15,27 @@ const modules: IMockApi[] = [
       if (!params.limit) params.limit = 10
 
       const list: IGetUserListRspItem[] = []
-      const roles = [
-        { id: 'admin', name: '管理员' },
-        { id: 'customer', name: '业务员' },
-        { id: 'agent', name: '代理商' },
-        { id: 'company', name: '企业用户' },
-      ]
+
+      function getRole(roleId?: string) {
+        const roles = [
+          { id: 'admin', name: '管理员' },
+          { id: 'customer', name: '业务员' },
+          { id: 'agent', name: '代理商' },
+          { id: 'company', name: '企业用户' },
+        ]
+
+        let role
+        if (roleId) {
+          role = roles.find((el) => el.id === roleId)
+        } else {
+          role = Random.pick(roles)
+        }
+
+        return role
+      }
 
       for (let i = 0; i < params.limit; i++) {
-        const role = Random.pick(roles)
+        const role = getRole(params.roleId)
         const avatarId = Random.integer(1, 34)
         list.push({
           userId: i + 1,

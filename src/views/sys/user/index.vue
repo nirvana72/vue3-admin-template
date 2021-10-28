@@ -10,7 +10,7 @@
         </app-title-input>
         <div class="pr-2">
           <el-button type="primary" @click="getList(1)">查询</el-button>
-          <el-button type="success" @click="onModifyCommand()">+ 新建</el-button>
+          <el-button type="success" @click="showForm()">+ 新建</el-button>
         </div>
       </div>
     </template>
@@ -19,7 +19,7 @@
       <el-table :data="datasource.list" @sort-change="onTableSort">
         <el-table-column width="100" align="center">
           <template #default="scope">
-            <img :src="scope.row.avatarUrl" class="rounded-1/2 w-15" />
+            <img :src="scope.row.avatarUrl" class="rounded w-15" />
           </template>
         </el-table-column>
         <el-table-column label="账号" prop="userId" sortable>
@@ -75,18 +75,15 @@
 </template>
 
 <script lang="ts">
-import { defineAsyncComponent, defineComponent, onMounted, reactive } from 'vue'
-import * as SysUserApi from '@/api/sys/user'
-import { IApiListRsp, EApiBoolen } from '@/api/types'
-import { parseTime, getBetterTableRowsNumber } from '@/utils/tools'
-import { IPopMenu, IPopMenuItem } from '@/components/AppPopMenu/types'
-import { ITheForm } from './form.vue'
-import { useComponentHandler } from '@/utils/componentHandler'
-import { ElMessageBox, ElLoading } from 'element-plus'
+import { defineAsyncComponent, defineComponent, onMounted } from 'vue'
 import RoleSelect from '@/views/components/RoleSelect.vue'
-
-type TQuery = SysUserApi.IGetUserListReq
-type TUser = SysUserApi.IGetUserListRspItem
+import { parseTime } from '@/utils/tools'
+import { useComponentHandler } from '@/utils/componentHandler'
+import useData from './indexData'
+import usePopmenu from './indexPopmenu'
+import { IGetUserListRspItem as IUser } from '@/api/sys/user'
+import { ITheForm } from './form.vue'
+import { IPopMenu } from '@/components/AppPopMenu/types'
 
 export default defineComponent({
   name: 'SysUserIndex',
@@ -96,31 +93,20 @@ export default defineComponent({
     ThePopMenu: defineAsyncComponent(() => import('@/components/AppPopMenu/index.vue')),
   },
   setup() {
-    // 查询条件
-    const query = reactive<TQuery>({
-      withOnline: EApiBoolen.TRUE,
-      limit: getBetterTableRowsNumber({ rowHeight: 70, minusHeight: 70 }),
-    })
+    const { query, datasource, getList } = useData()
 
-    // 查询结果
-    const datasource = reactive<IApiListRsp<TUser>>({
-      list: [],
-      total: 0,
-    })
+    const { items: popMenuItems } = usePopmenu(getList, showForm)
 
-    // 获取列表
-    function getList(p?: number) {
-      if (p) query.page = p
-      const loading = ElLoading.service()
-      SysUserApi.getUserListApi(query)
-        .then((data) => {
-          datasource.list = data.list
-          datasource.total = data.total
-        })
-        .finally(loading.close)
+    const componentHandler = useComponentHandler()
+
+    function showPopMenu(row: IUser, e: MouseEvent) {
+      componentHandler.getAsync<IPopMenu>('popMenuRef').then((c) => c.show(e, row))
     }
 
-    // 表格排序
+    function showForm(row?: IUser) {
+      componentHandler.getAsync<ITheForm>('theFormRef').then((c) => c.show(row))
+    }
+
     function onTableSort(params: { prop: string; order: string }) {
       const { order, prop } = params
       const sort = { ascending: 'ASC', descending: 'DESC' }[order]
@@ -128,71 +114,6 @@ export default defineComponent({
       getList(1)
     }
 
-    // 菜单项
-    const popMenuItems: IPopMenuItem<TUser>[] = [
-      {
-        label: '修改',
-        click: onModifyCommand,
-      },
-      {
-        label: '重置密码',
-        click: resetPassword,
-      },
-      {
-        label: '个人授权',
-        auth: ({ roleId }) => roleId !== 'admin',
-        click: defaultPopMenuEvent,
-      },
-      {
-        label: '切换账号',
-        type: 'success',
-        auth: ({ roleId }) => roleId !== 'admin',
-        click: defaultPopMenuEvent,
-      },
-      {
-        label: '删除',
-        type: 'danger',
-        click: deleteUser,
-      },
-    ]
-
-    // 组件助手
-    const componentHandler = useComponentHandler()
-
-    // 弹出菜单
-    function showPopMenu(row: TUser, e: MouseEvent) {
-      componentHandler.getAsync<IPopMenu>('popMenuRef').then((c) => c.show(e, row))
-    }
-
-    // 修改编辑
-    function onModifyCommand(row?: TUser) {
-      componentHandler.getAsync<ITheForm>('theFormRef').then((c) => c.show(row))
-    }
-
-    // 重置密码
-    function resetPassword(row: TUser) {
-      ElMessageBox.confirm(`确定重置 ${row.realName} 密码操作么`, '提示', { type: 'warning' }).then(() => {
-        SysUserApi.resetPassword(row.userId).then((msg) => {
-          ElMessageBox.alert(msg, { type: 'success' })
-        })
-      })
-    }
-
-    // 删除账号
-    function deleteUser(row: TUser) {
-      ElMessageBox.confirm(`确定删除 ${row.realName} 操作么`, '提示', { type: 'warning' }).then(() => {
-        SysUserApi.remove(row.userId).then(() => {
-          ElMessageBox.alert('删除成功', { type: 'success' })
-          getList()
-        })
-      })
-    }
-
-    function defaultPopMenuEvent() {
-      ElMessageBox.alert('功能未实现', { type: 'error' })
-    }
-
-    // 加载事件
     onMounted(getList)
 
     return {
@@ -201,9 +122,9 @@ export default defineComponent({
       getList,
       parseTime,
       onTableSort,
-      popMenuItems,
       showPopMenu,
-      onModifyCommand,
+      popMenuItems,
+      showForm,
       componentHandler,
     }
   },

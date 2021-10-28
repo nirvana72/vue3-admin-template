@@ -1,18 +1,17 @@
 <template>
-  <ElAvatar :size="30" :src="avatar" style="cursor: pointer" @click="avatarClick" />
-
-  <div style="margin-left: 10px">{{ realName }}</div>
+  <div class="flex items-center cursor-pointer" @click="avatarClick">
+    <img :src="avatar" class="rounded w-10" />
+    <span class="ml-2">{{ realName }}</span>
+  </div>
 </template>
 
 <script lang="ts">
 import { computed, defineComponent } from 'vue'
-import { ElAvatar } from 'element-plus'
 import { useSessionStore } from '@/store/modules/session'
 import { useRouter } from 'vue-router'
 
 export default defineComponent({
   name: 'UserInfo',
-  components: { ElAvatar },
   setup() {
     const sessionStore = useSessionStore()
     const realName = sessionStore.getSession.realName
