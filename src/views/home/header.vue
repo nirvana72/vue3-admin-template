@@ -1,7 +1,7 @@
 <template>
   <div class="px-10 py-5 flex justify-between">
     <div class="flex items-center">
-      <img :src="avatar" class="rounded" />
+      <img :src="avatarUrl" class="rounded" />
       <div class="ml-5">
         <p class="text-xl">早安, {{ realName }}, 开始您一天的工作吧！</p>
         <p>今日晴，20℃ - 32℃！</p>
@@ -28,5 +28,5 @@
 import { useSessionStore } from '@/store/modules/session'
 
 const sessionStore = useSessionStore()
-const { avatar, realName } = sessionStore.getSession
+const { avatarUrl, realName } = sessionStore.getSession
 </script>

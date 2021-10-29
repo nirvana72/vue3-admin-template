@@ -14,7 +14,7 @@ const modules: IMockApi[] = [
         data: {
           userId: 111,
           realName: 'nijia',
-          avatar: '/avatar/3.png',
+          avatarUrl: '/avatar/3.png',
           token: 'aaaaaaaa',
           refToken: 'bbbbbbbbbbb',
         },

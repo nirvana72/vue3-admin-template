@@ -4,7 +4,7 @@ import { defineStore } from 'pinia'
 export interface IUserSession {
   userId: number
   realName: string
-  avatar: string
+  avatarUrl: string
   token: string
   refToken: string
 }
@@ -41,7 +41,7 @@ export const useSessionStore = defineStore({
           this.session = {
             userId: -1,
             realName: '',
-            avatar: '/avatar/unknow.png',
+            avatarUrl: '/avatar/unknow.png',
             token: '',
             refToken: '',
           }
@@ -68,9 +68,9 @@ export const useSessionStore = defineStore({
       this.time = new Date().getTime().toString()
       sessionStorage.setItem(STORE_KEY, JSON.stringify(session))
     },
-    setAvatar(avatar: string) {
+    setAvatar(avatarUrl: string) {
       if (this.session) {
-        this.session.avatar = avatar
+        this.session.avatarUrl = avatarUrl
         this.time = new Date().getTime().toString()
       }
     },

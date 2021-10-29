@@ -83,3 +83,13 @@ ul.app-info-list {
 .el-button + .el-button {
   margin-left: 0.5rem;
 }
+
+// 表头样式
+.el-table__header-wrapper {
+  border-radius: 4px;
+  .el-table__header {
+    th.el-table__cell {
+      background-color: var(--appColor-7);
+    }
+  }
+}

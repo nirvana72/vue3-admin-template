@@ -61,6 +61,7 @@ export default defineComponent({
 
 <style lang="scss" scoped>
 .app-pop-menu {
+  z-index: 999;
   @apply absolute flex flex-col rounded shadow bg-white w-35 p-2;
   @apply dark:bg-gray-700 dark:border dark:border-gray-600;
   left: v-bind('state.x');

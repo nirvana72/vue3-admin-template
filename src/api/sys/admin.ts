@@ -20,9 +20,9 @@ export function getRoleAndAuths(): Promise<IGetRoleAndAuthsRes> {
 
 // -------------------------------------------------------------
 // 修改头像
-export function changeAvatarApi(avatar: string): Promise<void> {
+export function changeAvatarApi(avatarUrl: string): Promise<void> {
   return new Promise((resolve) => {
-    http.post('/sys/admin/change_avatar', { data: { avatar } }).then(() => {
+    http.post('/sys/admin/change_avatar', { data: { avatarUrl } }).then(() => {
       resolve()
     })
   })

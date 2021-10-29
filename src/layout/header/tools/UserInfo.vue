@@ -1,6 +1,6 @@
 <template>
   <div class="flex items-center cursor-pointer" @click="avatarClick">
-    <img :src="avatar" class="rounded w-10" />
+    <img :src="avatarUrl" class="rounded w-10" />
     <span class="ml-2">{{ realName }}</span>
   </div>
 </template>
@@ -15,7 +15,7 @@ export default defineComponent({
   setup() {
     const sessionStore = useSessionStore()
     const realName = sessionStore.getSession.realName
-    const avatar = computed(() => sessionStore.getSession.avatar + '?' + sessionStore.getTime)
+    const avatarUrl = computed(() => sessionStore.getSession.avatarUrl + '?' + sessionStore.getTime)
 
     const router = useRouter()
 
@@ -25,7 +25,7 @@ export default defineComponent({
 
     return {
       realName,
-      avatar,
+      avatarUrl,
       avatarClick,
     }
   },

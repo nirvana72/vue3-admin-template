@@ -1,7 +1,7 @@
 <template>
   <ElDrawer v-model="visible" title="修改头像" size="430px">
     <div class="text-center mb-10">
-      <img :src="avatar" class="inline-block w-40 rounded-xl" />
+      <img :src="avatarUrl" class="inline-block w-40 rounded-xl" />
     </div>
     <div class="flex flex-wrap">
       <img
@@ -33,24 +33,24 @@ export default defineComponent({
   setup() {
     const visible = ref(true)
     const sessionStore = useSessionStore()
-    let avatar = ref(sessionStore.getSession.avatar)
+    let avatarUrl = ref(sessionStore.getSession.avatarUrl)
 
     function show() {
       visible.value = true
     }
 
     function avatarClick(i: number) {
-      avatar.value = `/avatar/${i}.png`
+      avatarUrl.value = `/avatar/${i}.png`
     }
 
     function avatarSave() {
-      if (avatar.value === sessionStore.getSession.avatar) {
+      if (avatarUrl.value === sessionStore.getSession.avatarUrl) {
         visible.value = false
         return
       }
 
-      changeAvatarApi(avatar.value).then(() => {
-        sessionStore.setAvatar(avatar.value)
+      changeAvatarApi(avatarUrl.value).then(() => {
+        sessionStore.setAvatar(avatarUrl.value)
         visible.value = false
         ElMessageBox.alert('头像修改成功', { type: 'success' })
       })
@@ -58,7 +58,7 @@ export default defineComponent({
 
     return {
       visible,
-      avatar,
+      avatarUrl,
       show,
       avatarClick,
       avatarSave,

@@ -270,13 +270,14 @@ ul#appHeaderStateTools {
     line-height: $appHeaderTabsHeight;
     padding: unset;
     .item {
-      color: var(--appColor-4);
+      color: var(--appColor-3);
       padding: 0 15px;
       margin: 2px;
       height: $appHeaderTabsHeight - 5px;
       line-height: $appHeaderTabsHeight - 5px;
       border: 1px solid var(--appHeaderTabsBorderColor);
-      border-radius: 2px;
+      border-radius: 4px;
+      font-size: 0.8em;
     }
     .item.closeable {
       padding-right: 5px;

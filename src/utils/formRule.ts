@@ -37,13 +37,13 @@ function is_march_rex(rule: InternalRuleItem, value: Value, callback: (error?: s
   { lbl: '小票失效天数', rule: 'number' },
   { lbl: '小票失效月数', rule: 'require|number' },
   { lbl: '联系手机号', rule: 'phone' },
-  { lbl: '企业邮箱', rule: 'require|customer', rex: /^\w+([-+.]\w+)*@\w+([-.]\w+)*\.\w+([-.]\w+)*$/ },
+  { lbl: '企业邮箱', rule: 'require|customize', rex: /^\w+([-+.]\w+)*@\w+([-.]\w+)*\.\w+([-.]\w+)*$/ },
  */
 
 /**
  * 创建表单验证规则
  */
-export function formRule(option: IRuleOption): FormItemRule[] {
+export function makeRule(option: IRuleOption): FormItemRule[] {
   let required = false
   const ary = option.rule.split('|')
   if (ary.length > 1 && ary[0] === 'require') {
@@ -61,7 +61,7 @@ export function formRule(option: IRuleOption): FormItemRule[] {
       rule.required = true
       rule.message = `${option.lbl}不能为空`
       break
-    case 'customer':
+    case 'customize':
       rule.pattern = option.rex
       rule.validator = is_march_rex
       break

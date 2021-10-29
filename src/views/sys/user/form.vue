@@ -2,13 +2,13 @@
   <el-dialog v-model="state.visible" title="系统用户" width="360px">
     <div class="mx-5">
       <el-form ref="formRef" :model="form" label-width="60px">
-        <el-form-item label="账号" prop="account" :rules="formRule({ rule: 'require|phone' })">
+        <el-form-item label="账号" prop="account" :rules="makeRule({ rule: 'require|phone' })">
           <el-input v-model="form.account" placeholder="手机号"></el-input>
         </el-form-item>
-        <el-form-item label="实名" prop="realName" :rules="formRule({ rule: 'require' })">
+        <el-form-item label="实名" prop="realName" :rules="makeRule({ rule: 'require' })">
           <el-input v-model="form.realName"></el-input>
         </el-form-item>
-        <el-form-item label="角色" prop="roleId" :rules="formRule({ rule: 'require' })">
+        <el-form-item label="角色" prop="roleId" :rules="makeRule({ rule: 'require' })">
           <RoleSelect v-model="form.roleId" :only-sys-role="true" />
         </el-form-item>
         <el-form-item label="状态">
@@ -27,7 +27,7 @@
 
 <script lang="ts">
 import { defineComponent, reactive } from 'vue'
-import { formRule } from '@/utils/formRule'
+import { makeRule } from '@/utils/formRule'
 import { useComponentHandler } from '@/utils/componentHandler'
 import * as SysUserApi from '@/api/sys/user'
 import { leftAssign } from '@/utils/tools'
@@ -95,7 +95,7 @@ export default defineComponent({
     return {
       state,
       form,
-      formRule,
+      makeRule,
       show,
       submit,
     }

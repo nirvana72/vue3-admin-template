@@ -46,17 +46,17 @@ export interface IPostUserReq {
   state: number
 }
 
-export function create(params: IPostUserReq): Promise<void> {
+export function create(data: IPostUserReq): Promise<void> {
   return new Promise((resolve) => {
-    http.post('/sys/user/', { params }).then(() => {
+    http.post('/sys/user/', { data }).then(() => {
       resolve()
     })
   })
 }
 
-export function update(params: IPostUserReq): Promise<void> {
+export function update(data: IPostUserReq): Promise<void> {
   return new Promise((resolve) => {
-    http.put('/sys/user/', { params }).then(() => {
+    http.put('/sys/user/', { data }).then(() => {
       resolve()
     })
   })

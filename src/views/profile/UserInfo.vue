@@ -1,7 +1,7 @@
 <template>
   <div class="h-full flex items-center justify-center">
     <div class="mr-20 flex flex-col items-center">
-      <img :src="avatar" class="w-40 rounded-xl" />
+      <img :src="avatarUrl" class="w-40 rounded-xl" />
       <el-button type="primary" class="mt-5" @click="changeAvatar">修改头像</el-button>
     </div>
     <ul class="app-info-list w-80">
@@ -53,7 +53,7 @@ export default defineComponent({
   setup() {
     const router = useRouter()
     const sessionStore = useSessionStore()
-    const avatar = computed(() => sessionStore.getSession.avatar + '?' + sessionStore.getTime)
+    const avatarUrl = computed(() => sessionStore.getSession.avatarUrl + '?' + sessionStore.getTime)
 
     function changePassword() {
       router.push({ name: 'ProfileChangePassword' })
@@ -66,7 +66,7 @@ export default defineComponent({
     }
 
     return {
-      avatar,
+      avatarUrl,
       componentHandler,
       changePassword,
       changeAvatar,
