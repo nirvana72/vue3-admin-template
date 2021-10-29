@@ -1,11 +1,9 @@
 import { ComponentPublicInstance, getCurrentInstance, ref } from 'vue'
 
-type Proxy = ComponentPublicInstance | null | undefined
-
-export class ComponentHandler {
+class ComponentHandler {
   private components = ref(new Set<string>())
-
-  private proxy: Proxy
+  private proxy: ComponentPublicInstance | null | undefined
+  private intervals: { [index: string]: { id: number; timeout: number } } = {}
 
   constructor() {
     this.proxy = getCurrentInstance()!.proxy
@@ -24,25 +22,35 @@ export class ComponentHandler {
       if (this.proxy?.$refs[name]) {
         resolve(this.proxy?.$refs[name] as T)
       } else {
-        this.components.value.add(name)
-        let timeout = 0
-        const interval = setInterval(() => {
-          if (this.proxy?.$refs[name]) {
-            clearInterval(interval)
-            resolve(this.proxy?.$refs[name] as T)
-          } else {
-            timeout += 100
-            if (timeout >= 5000) {
-              clearInterval(interval)
-              const msg = `异步组件 ${name} 加载超时`
+        if (this.intervals[name]) {
+          reject('加载中...')
+        } else {
+          this.components.value.add(name)
+          this.intervals[name] = {
+            timeout: 0,
+            id: setInterval(() => {
               // eslint-disable-next-line no-console
-              console.log(msg)
-              reject(msg)
-            }
+              console.log(`加载异步组件 ${name}`, this.intervals[name])
+              if (this.proxy?.$refs[name]) {
+                this.clean(name)
+                resolve(this.proxy?.$refs[name] as T)
+              } else {
+                this.intervals[name].timeout += 100
+                if (this.intervals[name].timeout >= 3000) {
+                  this.clean(name)
+                  reject(`加载异步组件超时 ${name}`)
+                }
+              }
+            }, 100),
           }
-        }, 100)
+        }
       }
     })
+  }
+
+  private clean(name: string) {
+    clearInterval(this.intervals[name].id)
+    delete this.intervals[name]
   }
 }
 

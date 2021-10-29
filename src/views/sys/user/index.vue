@@ -3,7 +3,7 @@
     <template #header>
       <div class="p-5 flex justify-center">
         <app-title-input title="账号" class="w-60 pr-2">
-          <el-input v-model="query.account" />
+          <el-input v-model="query.account" placeholder="id / 账号 / 姓名" />
         </app-title-input>
         <app-title-input title="角色" class="w-60 pr-2">
           <RoleSelect v-model="query.roleId" />
@@ -78,10 +78,10 @@
 import { defineAsyncComponent, defineComponent, onMounted } from 'vue'
 import RoleSelect from '@/views/components/RoleSelect.vue'
 import { parseTime } from '@/utils/tools'
+import { IGetUserListRspItem as IUser } from '@/api/sys/user'
 import { useComponentHandler } from '@/utils/componentHandler'
 import useData from './indexData'
 import usePopmenu from './indexPopmenu'
-import { IGetUserListRspItem as IUser } from '@/api/sys/user'
 import { ITheForm } from './form.vue'
 import { IPopMenu } from '@/components/AppPopMenu/types'
 
