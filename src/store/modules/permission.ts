@@ -34,7 +34,7 @@ export const usePermissionStore = defineStore({
 
         const sessionStore = useSessionStore()
         if (sessionStore.getRole.id !== 'admin') {
-          routes = filterRoutesWithAuths(routes, sessionStore.getAuths)
+          routes = filterRoutesWithAuths(routes)
         }
       }
       const {
@@ -55,7 +55,7 @@ export const usePermissionStore = defineStore({
 
       // 如果不是管理员
       if (sessionStore.getRole.id !== 'admin') {
-        routes = filterRoutesWithAuths(routes, sessionStore.getAuths)
+        routes = filterRoutesWithAuths(routes)
       }
 
       // 过滤出的路由转成菜单数据

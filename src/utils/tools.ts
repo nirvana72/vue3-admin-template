@@ -35,10 +35,6 @@ export function getBetterTableRowsNumber(params: { rowHeight?: number; minusHeig
   const appHeaderHeight = getAppHeaderHeight()
   let tableVisibleHeight = windowHeight.value - appHeaderHeight.value
   tableVisibleHeight -= params.minusHeight || 0
-  tableVisibleHeight -= 17.5 * 2 // padding
-  tableVisibleHeight -= 20 * 2 // el-card padding
-  tableVisibleHeight -= 40 // 表头占用
-  tableVisibleHeight -= 50 // 分页占用
   return Math.ceil(tableVisibleHeight / (params.rowHeight || 40))
 }
 

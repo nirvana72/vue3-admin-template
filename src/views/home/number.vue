@@ -1,5 +1,5 @@
 <template>
-  <el-card shadow="none" class="el-card--app flex-1">
+  <app-card class="flex-1">
     <template #header>
       <div class="flex items-center justify-between">
         <span>{{ title }}</span>
@@ -7,7 +7,7 @@
       </div>
     </template>
     <div class="text-center py-2">{{ number }}</div>
-  </el-card>
+  </app-card>
 </template>
 
 <script lang="ts" setup>

@@ -1,21 +1,29 @@
 import type { Directive, DirectiveBinding } from 'vue'
 import { useSessionStore } from '@/store/modules/session'
 
+export function hasAuth(val?: string): boolean {
+  const { getRole: role, getAuths: auths } = useSessionStore()
+
+  if (!val) return true
+
+  if (role.id === 'admin') return true
+
+  if (val.startsWith('role:')) {
+    const roleId = val.substr(5)
+    return roleId === role.id
+  }
+
+  if (val.startsWith('auth:')) {
+    const auth = val.substr(5)
+    return auths.includes(auth)
+  }
+
+  return false
+}
+
 const directive: Directive = {
   mounted(el: Element, binding: DirectiveBinding<string>) {
-    const { getRole: role, getAuths: auths } = useSessionStore()
-    if (role.id === 'admin') return
-
-    let value = binding.value
-    if (!value) return
-
-    if (value.startsWith('@')) {
-      value = value.substr(1)
-      return value === role.id
-    }
-
-    const hasPermission = auths.includes(value)
-    if (!hasPermission) {
+    if (false === hasAuth(binding.value)) {
       el.parentNode?.removeChild(el)
     }
   },

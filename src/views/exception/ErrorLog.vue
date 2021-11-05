@@ -1,5 +1,5 @@
 <template>
-  <app-page-warpper>
+  <app-page>
     <template #header>
       <div class="text-center p-10">
         <h1 class="float-left text-xl">错误日志</h1>
@@ -35,7 +35,7 @@
         <div v-html="item.stack" />
       </div>
     </div>
-  </app-page-warpper>
+  </app-page>
 </template>
 
 <script lang="ts">

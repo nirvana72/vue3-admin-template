@@ -23,6 +23,10 @@ html.dark {
   --appTextColor: var(--appColor-4); // 字体颜色
   --appPanelBgColor: #181818; // 浮于背景上的面板色
 
+  #appMain {
+    background-color: rgba(0, 0, 0, 1);
+  }
+
   #appAside,
   ul.el-menu--popup {
     --appAsideTextColor: var(--appColor-4); // 侧边菜单字体色
@@ -33,8 +37,8 @@ html.dark {
 
   #appHeader {
     --appHeaderBgColor: var(--appPanelBgColor);
-    --appHeaderStateBorderColor: var(--appColor-8);
-    --appHeaderTabsBorderColor: var(--appColor-8);
+    --appHeaderStateBorderColor: var(--appColor-7);
+    --appHeaderTabsBorderColor: var(--appColor-7);
   }
 
   .app-title-input {
@@ -47,7 +51,7 @@ html.dark {
 
   --el-text-color-primary: var(--appTextColor);
   --el-text-color-regular: var(--appTextColor);
-  --el-border-color-lighter: var(--appColor-7);
+  --el-border-color-lighter: var(--appColor-8);
   --el-border-color-base: var(--appColor-5);
   --el-background-color-base: var(--appColor-5);
 
@@ -68,13 +72,15 @@ html.dark {
       background-color: var(--appColor-7);
     }
   }
-  .el-card__header {
-    border-bottom-color: var(--appColor-6);
-  }
   .el-table {
     --el-table-header-background-color: var(--appPanelBgColor);
     --el-table-tr-background-color: var(--appPanelBgColor);
-    --el-table-row-hover-background-color: var(--appColor-7);
+    --el-table-row-hover-background-color: var(--appColor-8);
+    tr.el-table__row--striped {
+      td.el-table__cell {
+        background: #131922;
+      }
+    }
   }
   .el-tag {
     color: var(--el-tag-border-color);
@@ -106,5 +112,8 @@ html.dark {
     background-color: #000000;
     border: var(--el-input-border, var(--el-border-base));
     border-right: unset;
+  }
+  .el-range-input {
+    background-color: unset;
   }
 }

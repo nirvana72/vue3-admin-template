@@ -1,5 +1,5 @@
 <template>
-  <app-page-warpper>
+  <app-page>
     <template #header>
       <TheHeader />
     </template>
@@ -15,16 +15,16 @@
       </ElCol>
     </ElRow>
 
-    <el-card shadow="none" class="el-card--app mt-5">
+    <app-card class="mt-5">
       <template #header> 流量趋势 </template>
       <TheChartLine ref="chartLine" />
-    </el-card>
+    </app-card>
 
-    <el-card shadow="none" class="el-card--app mt-5">
+    <app-card class="mt-5">
       <template #header> 访问量 </template>
       <TheChartBar ref="chartBar" />
-    </el-card>
-  </app-page-warpper>
+    </app-card>
+  </app-page>
 </template>
 
 <script lang="ts">

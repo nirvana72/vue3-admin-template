@@ -2,16 +2,17 @@ import type { IAppRoute, IAppMenu } from '@/router/types'
 import type { Router, RouteRecordRaw, RouteRecordNormalized } from 'vue-router'
 import { createRouter, createWebHashHistory } from 'vue-router'
 import { sortBy } from 'lodash'
+import { hasAuth } from '@/directives/auth'
 
 // 根据权限列表，过滤出可用的路由
-export function filterRoutesWithAuths(list: IAppRoute[], auths: string[]): IAppRoute[] {
+export function filterRoutesWithAuths(list: IAppRoute[]): IAppRoute[] {
   const ret: IAppRoute[] = []
   list.forEach((r) => {
     if (r.children && r.children.length > 0) {
-      r.children = filterRoutesWithAuths(r.children, auths)
+      r.children = filterRoutesWithAuths(r.children)
     }
-    const hasAtuh = !r.auth || auths.includes(r.auth)
-    if (hasAtuh) {
+    const isApply = (!r.children || r.children.length > 0) && (!r.auth || hasAuth(r.auth))
+    if (isApply) {
       ret.push(r)
     }
   })

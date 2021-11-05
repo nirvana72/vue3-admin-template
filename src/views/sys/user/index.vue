@@ -1,21 +1,22 @@
 <template>
-  <app-page-warpper>
-    <template #header>
-      <div class="p-5 flex justify-center">
-        <app-title-input title="账号" class="w-60 pr-2">
-          <el-input v-model="query.account" placeholder="id / 账号 / 姓名" />
-        </app-title-input>
-        <app-title-input title="角色" class="w-60 pr-2">
-          <RoleSelect v-model="query.roleId" />
-        </app-title-input>
-        <div class="pr-2">
-          <el-button type="primary" @click="getList(1)">查询</el-button>
-          <el-button type="success" @click="showForm()">+ 新建</el-button>
+  <app-page>
+    <app-card v-loading="loading" class="max-w-screen-2xl mx-auto">
+      <template #header>
+        <div class="flex justify-end">
+          <div class="ml-2">
+            <el-input v-model="query.account" placeholder="账号" />
+          </div>
+          <div class="ml-2">
+            <RoleSelect v-model="query.roleId" placeholder="角色" />
+          </div>
+          <div class="ml-2">
+            <el-button type="primary" @click="getList(1)">查询</el-button>
+          </div>
+          <div class="ml-2">
+            <el-button type="success" @click="showForm()">+ 新建</el-button>
+          </div>
         </div>
-      </div>
-    </template>
-
-    <el-card shadow="none" class="el-card--app max-w-screen-2xl mx-auto">
+      </template>
       <el-table :data="datasource.list" @sort-change="onTableSort">
         <el-table-column width="100" align="center">
           <template #default="scope">
@@ -58,20 +59,20 @@
         </el-table-column>
       </el-table>
 
-      <div class="mt-5 text-center">
-        <el-pagination
-          background
-          layout="total, prev, pager, next"
-          :total="datasource.total"
-          @current-change="getList"
-        />
-      </div>
-    </el-card>
+      <el-pagination
+        background
+        layout="total, prev, pager, next"
+        :page-size="query.limit"
+        :total="datasource.total"
+        @current-change="getList"
+        class="mt-5 text-center"
+      />
+    </app-card>
 
     <ThePopMenu v-if="componentHandler.async('popMenuRef')" ref="popMenuRef" :items="popMenuItems" />
 
     <TheForm v-if="componentHandler.async('theFormRef')" ref="theFormRef" @submit="getList(1)" />
-  </app-page-warpper>
+  </app-page>
 </template>
 
 <script lang="ts">
@@ -93,7 +94,7 @@ export default defineComponent({
     ThePopMenu: defineAsyncComponent(() => import('@/components/AppPopMenu/index.vue')),
   },
   setup() {
-    const { query, datasource, getList } = useData()
+    const { loading, query, datasource, getList } = useData()
 
     const { items: popMenuItems } = usePopmenu(getList, showForm)
 
@@ -117,6 +118,7 @@ export default defineComponent({
     onMounted(getList)
 
     return {
+      loading,
       query,
       datasource,
       getList,

@@ -274,7 +274,7 @@ ul#appHeaderStateTools {
       padding: 0 15px;
       margin: 2px;
       height: $appHeaderTabsHeight - 5px;
-      line-height: $appHeaderTabsHeight - 5px;
+      line-height: $appHeaderTabsHeight - 7px;
       border: 1px solid var(--appHeaderTabsBorderColor);
       border-radius: 4px;
       font-size: 0.8em;
@@ -331,5 +331,5 @@ ul.app-header-tab-menu {
 // 主区域
 // ------------------------------------------------
 #appMain {
-  background-color: var(--el-color-white);
+  background-color: rgba(243, 244, 246, 1);
 }

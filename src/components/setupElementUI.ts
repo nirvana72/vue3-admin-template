@@ -5,7 +5,6 @@ import {
   ElInput,
   ElSelect,
   ElOption,
-  ElCard,
   ElTable,
   ElTableColumn,
   ElPagination,
@@ -18,12 +17,11 @@ import {
 } from 'element-plus'
 
 export function setupElementUI(app: App): void {
-  app.config.globalProperties.$ELEMENT = { size: 'small', zIndex: 3000 }
+  app.config.globalProperties.$ELEMENT = { size: 'small' }
   app.use(ElButton)
   app.use(ElInput)
   app.use(ElSelect)
   app.use(ElOption)
-  app.use(ElCard)
   app.use(ElTable)
   app.use(ElTableColumn)
   app.use(ElPagination)
