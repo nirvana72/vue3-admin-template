@@ -61,6 +61,7 @@
 
       <el-pagination
         background
+        v-model:current-page="query.page"
         layout="total, prev, pager, next"
         :page-size="query.limit"
         :total="datasource.total"
